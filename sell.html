@@ -3,44 +3,181 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sell Your Car - Car Nexus</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Sell a Car - Car Nexus</title>
+
+    <!-- Google Font for Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <style>
+        /* General styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        /* Header Styling */
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Container Styling */
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        input, select, textarea {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .upload-button {
+            display: inline-block;
+            background-color: #28a745;
+            padding: 10px 15px;
+            border-radius: 5px;
+            color: white;
+            text-align: center;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        .upload-button:hover {
+            background-color: #218838;
+        }
+    </style>
 </head>
 <body>
+
     <!-- Navigation Bar -->
     <header>
-        <a href="index.html"><h1>Car Nexus</h1></a> <!-- Make logo clickable -->
+        <h1><a href="index.html" style="color: white; text-decoration: none;">Car Nexus</a></h1>
         <nav>
             <ul>
                 <li><a href="about.html">About</a></li>
                 <li><a href="sell.html">Sell a Car</a></li>
                 <li><a href="signup.html">Sign Up</a></li>
+                <li><a href="login.html">Log In</a></li>
             </ul>
         </nav>
     </header>
 
-    <!-- Sell Section -->
-    <section id="sell">
-        <h2>Sell Your Car</h2>
-        <form id="sellForm">
-            <label for="make">Car Make:</label>
-            <input type="text" id="make" name="make" required><br>
+    <div class="container">
+        <h2>List Your Car for Sale</h2>
 
-            <label for="model">Car Model:</label>
-            <input type="text" id="model" name="model" required><br>
+        <form id="carListingForm">
+            <input type="text" id="carMake" placeholder="Car Make (e.g., Toyota)" required>
+            <input type="text" id="carModel" placeholder="Car Model (e.g., Corolla)" required>
+            <input type="number" id="carYear" placeholder="Year of Manufacture" required>
+            <input type="number" id="carPrice" placeholder="Price (in USD)" required>
 
-            <label for="price">Price:</label>
-            <input type="number" id="price" name="price" required><br>
+            <select id="carCondition" required>
+                <option value="" disabled selected>Select Condition</option>
+                <option value="New">New</option>
+                <option value="Used">Used</option>
+            </select>
 
-            <label for="year">Year:</label>
-            <input type="number" id="year" name="year" required><br>
+            <input type="text" id="carColor" placeholder="Car Color (e.g., Red)" required>
+            <input type="number" id="carMileage" placeholder="Mileage (in miles)" required>
 
-            <button type="submit" onclick="submitCar(event)">Submit</button>
+            <label for="carPictures" class="upload-button">Upload Pictures</label>
+            <input type="file" id="carPictures" style="display: none;" multiple accept="image/*">
+
+            <textarea id="carDescription" rows="5" placeholder="Write a brief description of the car..." required></textarea>
+
+            <button type="submit">List Car for Sale</button>
         </form>
-    </section>
+    </div>
 
-    <!-- Back Button -->
-    <button onclick="window.location.href='index.html';">Back to Home</button> <!-- Back button -->
+    <script>
+        // JavaScript for form submission handling
+        const carForm = document.getElementById('carListingForm');
+        const carPicturesInput = document.getElementById('carPictures');
+
+        carForm.addEventListener('submit', (event) => {
+            event.preventDefault(); // Prevent page reload
+
+            const carMake = document.getElementById('carMake').value;
+            const carModel = document.getElementById('carModel').value;
+            const carYear = document.getElementById('carYear').value;
+            const carPrice = document.getElementById('carPrice').value;
+            const carCondition = document.getElementById('carCondition').value;
+            const carColor = document.getElementById('carColor').value;
+            const carMileage = document.getElementById('carMileage').value;
+            const carDescription = document.getElementById('carDescription').value;
+            const pictures = carPicturesInput.files;
+
+            // Check if pictures are uploaded
+            if (pictures.length === 0) {
+                alert("Please upload at least one picture of the car.");
+                return;
+            }
+
+            // Simulate form submission
+            alert(`Your ${carYear} ${carMake} ${carModel} has been listed for $${carPrice}!`);
+
+            // Reset the form after submission
+            carForm.reset();
+        });
+    </script>
 
 </body>
 </html>
