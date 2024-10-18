@@ -1,26 +1,41 @@
-// Function to search for a car (for demonstration purposes)
+let suggestions = [];
+
+// Fetch car data from the JSON file
+fetch('suggestions.json')
+    .then(response => response.json())
+    .then(data => {
+        suggestions = data;
+        console.log('Suggestions loaded:', suggestions); // Log to confirm suggestions are loaded
+    })
+    .catch(error => console.error('Error fetching suggestions:', error));
+
+// Function to filter suggestions based on user input
 function searchCar() {
-    let searchInput = document.getElementById("searchBar").value;
-    alert("You searched for: " + searchInput);
+    const input = document.getElementById('searchBar').value.toLowerCase();
+    const filteredSuggestions = suggestions.filter(car => {
+        const carInfo = `${car.brand} ${car.model} ${car.year}`.toLowerCase();
+        return carInfo.includes(input);
+    });
+
+    // Display the top 5 suggestions
+    displaySuggestions(filteredSuggestions.slice(0, 5));
 }
 
-// Function to submit a car for sale
-function submitCar(event) {
-    event.preventDefault(); // Prevent form from refreshing page
-    let make = document.getElementById("make").value;
-    let model = document.getElementById("model").value;
-    let price = document.getElementById("price").value;
-    let year = document.getElementById("year").value;
+// Function to display the filtered suggestions
+function displaySuggestions(suggestions) {
+    const suggestionBox = document.getElementById('suggestion-box');
+    suggestionBox.innerHTML = ''; // Clear previous suggestions
 
-    alert("Car Submitted: " + make + " " + model + ", $" + price + ", Year: " + year);
-}
+    suggestions.forEach(suggestion => {
+        const suggestionItem = document.createElement('div');
+        suggestionItem.classList.add('suggestion-item');
+        suggestionItem.textContent = `${suggestion.brand} ${suggestion.model} ${suggestion.year}`;
+        suggestionBox.appendChild(suggestionItem);
 
-// Function for sign up form
-function signUp(event) {
-    event.preventDefault(); // Prevent form from refreshing page
-    let name = document.getElementById("name").value;
-    let email = document.getElementById("email").value;
-    let password = document.getElementById("password").value;
-
-    alert("Welcome, " + name + "! Your sign-up is complete.");
+        // Add event listener to handle clicks on suggestions
+        suggestionItem.addEventListener('click', () => {
+            document.getElementById('searchBar').value = suggestionItem.textContent;
+            suggestionBox.innerHTML = ''; // Clear the suggestions
+        });
+    });
 }
