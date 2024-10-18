@@ -38,74 +38,46 @@ body, html {
 .search-section {
     margin-top: 20px;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .search-section input[type="text"] {
     padding: 10px;
     font-size: 1.2rem;
-    width: 300px;
+    width: 280px;
     border: none;
     border-radius: 5px;
-}
-
-/* Styling for the Suggestion Box */
-.suggestions {
-    position: absolute;
-    top: 50px;
-    left: 0;
-    width: 300px;
-    background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    max-height: 200px;
-    overflow-y: auto;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    z-index: 10;
-}
-
-.suggestion-item {
-    padding: 10px;
-    cursor: pointer;
-    border-bottom: 1px solid #ddd;
-}
-
-.suggestion-item:last-child {
-    border-bottom: none;
-}
-
-.suggestion-item:hover {
-    background-color: #f1f1f1;
-}
-
-/* Styling for the Search Button */
-.search-section button {
-    padding: 10px 20px;
-    font-size: 1.2rem;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-left: 10px;
-}
-
-.search-section button:hover {
-    background-color: #45a049;
+    margin: 5px 0; /* Add space between input fields */
 }
 
 /* Header and Navigation Styles */
 header {
-    background-color: #333;
+    background-color: rgba(0, 0, 0, 0.5); /* Make the header semi-transparent */
     color: white;
     padding: 10px 20px;
     text-align: center;
+    position: fixed; /* Keep the header at the top of the page */
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 100; /* Ensure the header stays on top of other content */
+    backdrop-filter: blur(5px); /* Optional: add a slight blur to enhance readability */
 }
 
+/* Ensure the page content doesn't overlap with the fixed header */
+#home {
+    padding-top: 80px; /* Adjust this based on the height of your header */
+}
+
+/* Header Title */
 header h1 {
     margin: 0;
     display: inline-block;
 }
 
+/* Navigation Links */
 nav ul {
     list-style-type: none;
     margin: 0;
