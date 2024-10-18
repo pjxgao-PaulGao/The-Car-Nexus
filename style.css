@@ -1,32 +1,119 @@
-/* General Page Styles */
-body {
-    font-family: Arial, sans-serif;
+/* General Styles */
+body, html {
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    height: 100%;
+    font-family: Arial, sans-serif;
 }
 
+/* Background Image for the Main Page */
+#home {
+    height: 100vh;
+    background-image: url('College-student-in-new-car.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Welcome Text Styling */
+.welcome-text h2 {
+    font-weight: bold;
+    color: white;
+    font-size: 3rem;
+}
+
+.welcome-text p {
+    color: #f8f8ff; /* Bright off-white color */
+    font-size: 1.5rem;
+    font-weight: bold; /* Make the text bold */
+    margin-top: 10px;
+}
+
+/* Search Section Styling */
+.search-section {
+    margin-top: 20px;
+    position: relative;
+}
+
+.search-section input[type="text"] {
+    padding: 10px;
+    font-size: 1.2rem;
+    width: 300px;
+    border: none;
+    border-radius: 5px;
+}
+
+/* Styling for the Suggestion Box */
+.suggestions {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    width: 300px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    max-height: 200px;
+    overflow-y: auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+
+.suggestion-item {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #ddd;
+}
+
+.suggestion-item:last-child {
+    border-bottom: none;
+}
+
+.suggestion-item:hover {
+    background-color: #f1f1f1;
+}
+
+/* Styling for the Search Button */
+.search-section button {
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.search-section button:hover {
+    background-color: #45a049;
+}
+
+/* Header and Navigation Styles */
 header {
     background-color: #333;
     color: white;
-    padding: 15px 0;
+    padding: 10px 20px;
     text-align: center;
 }
 
 header h1 {
     margin: 0;
-    font-size: 2.5rem;
+    display: inline-block;
 }
 
 nav ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    text-align: center;
 }
 
 nav ul li {
-    display: inline;
+    display: inline-block;
     margin-right: 20px;
 }
 
@@ -40,47 +127,10 @@ nav ul li a:hover {
     text-decoration: underline;
 }
 
-/* Section Styles */
-section {
-    margin: 50px auto;
-    max-width: 800px;
-    text-align: center;
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-h2 {
-    color: #333;
-}
-
-input[type="text"], input[type="number"], input[type="email"], input[type="password"] {
-    padding: 10px;
-    width: 80%;
-    margin: 10px 0;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-}
-
-button {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #45a049;
-}
-
-#searchBar {
-    padding: 10px;
-    width: 60%;
-    margin: 20px auto;
-    display: inline-block;
-    border-radius: 4px;
-    border: 1px solid #ccc;
+/* Responsive Design */
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+        text-align: center;
+    }
 }
