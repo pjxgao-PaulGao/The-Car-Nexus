@@ -6,13 +6,11 @@
     <title>About Car Nexus</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Additional styling for the white logo */
-        header a h1 {
-            color: white;
-        }
-
-        /* Background styling */
+        /* General and Header Styling */
         body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
             background-image: url('Welcome-img.jpg');
             background-size: cover;
             background-position: center;
@@ -21,23 +19,83 @@
             color: white; /* Ensures text is readable */
         }
 
-        /* Optional: Make sections slightly transparent */
-        section {
+        header {
+            background-color: rgba(0, 0, 0, 0.8); /* Slightly transparent background */
+            color: white;
+            padding: 10px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000; /* Ensure it stays on top */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            margin: 0;
+            text-align: center;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Ensure content starts below the header */
+        #about {
+            padding-top: 150px; /* Further increased to ensure content clears the header */
             background-color: rgba(0, 0, 0, 0.6);
             padding: 20px;
+            margin: 40px auto;
+            width: 90%; /* Allows content to span more area */
+            max-width: 900px; /* Limits the width to prevent excessive stretching on wide screens */
             border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Section styling to make text readable */
+        section {
+            text-align: left;
+            line-height: 1.6; /* Improves readability */
         }
     </style>
 </head>
 <body>
+
     <!-- Navigation Bar -->
-    <header style="background-color: black; padding: 10px;">
-        <a href="index.html"><h1>Car Nexus</h1></a> <!-- Make logo clickable and white -->
+    <header>
+        <h1><a href="index.html" style="color: white; text-decoration: none;">Car Nexus</a></h1>
         <nav>
             <ul>
                 <li><a href="about.html">About</a></li>
                 <li><a href="sell.html">Sell a Car</a></li>
                 <li><a href="signup.html">Sign Up</a></li>
+                <li><a href="login.html">Log In</a></li>
             </ul>
         </nav>
     </header>
@@ -55,7 +113,7 @@
     </section>
 
     <!-- Back Button -->
-    <button onclick="window.location.href='index.html';">Back to Home</button> <!-- Back button -->
+    <button onclick="window.location.href='index.html';" style="margin: 20px; padding: 10px 20px;">Back to Home</button>
 
 </body>
 </html>

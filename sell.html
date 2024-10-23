@@ -149,11 +149,13 @@
 
     <script>
         // JavaScript for form submission handling
+        console.log("Script Loaded"); // Check if script runs
         const carForm = document.getElementById('carListingForm');
         const carPicturesInput = document.getElementById('carPictures');
 
         carForm.addEventListener('submit', (event) => {
             event.preventDefault(); // Prevent page reload
+            console.log("Form Submitted");
 
             const carMake = document.getElementById('carMake').value;
             const carModel = document.getElementById('carModel').value;
@@ -163,19 +165,61 @@
             const carColor = document.getElementById('carColor').value;
             const carMileage = document.getElementById('carMileage').value;
             const carDescription = document.getElementById('carDescription').value;
-            const pictures = carPicturesInput.files;
+            const carPictures = carPicturesInput.files;
 
-            // Check if pictures are uploaded
-            if (pictures.length === 0) {
-                alert("Please upload at least one picture of the car.");
-                return;
+            // Convert uploaded images to Data URLs for localStorage
+            const images = [];
+            if (carPictures.length > 0) {
+                let imagesLoaded = 0;
+                for (let i = 0; i < carPictures.length; i++) {
+                    const reader = new FileReader();
+                    reader.readAsDataURL(carPictures[i]);
+                    reader.onload = function () {
+                        images.push(reader.result);
+                        imagesLoaded++;
+                        // Store car data in localStorage when all images are read
+                        if (imagesLoaded === carPictures.length) {
+                            saveCarData({
+                                brand: carMake,
+                                model: carModel,
+                                year: carYear,
+                                price: carPrice,
+                                condition: carCondition,
+                                color: carColor,
+                                mileage: carMileage,
+                                description: carDescription,
+                                images: images
+                            });
+                        }
+                    };
+                }
+            } else {
+                // If no pictures uploaded, save car data without images
+                saveCarData({
+                    brand: carMake,
+                    model: carModel,
+                    year: carYear,
+                    price: carPrice,
+                    condition: carCondition,
+                    color: carColor,
+                    mileage: carMileage,
+                    description: carDescription,
+                    images: [] // Empty array if no images
+                });
             }
 
-            // Simulate form submission
-            alert(`Your ${carYear} ${carMake} ${carModel} has been listed for $${carPrice}!`);
+            // Function to save car data
+            function saveCarData(carData) {
+                let cars = JSON.parse(localStorage.getItem('cars')) || [];
+                cars.push(carData);
+                localStorage.setItem('cars', JSON.stringify(cars));
 
-            // Reset the form after submission
-            carForm.reset();
+                // Confirmation alert
+                alert(`Your ${carYear} ${carMake} ${carModel} has been listed for $${carPrice}!`);
+
+                // Reset the form after submission
+                carForm.reset();
+            }
         });
     </script>
 

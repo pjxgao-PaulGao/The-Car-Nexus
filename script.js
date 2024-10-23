@@ -1,13 +1,17 @@
 let suggestions = [];
 
-// Fetch car data from the JSON file
-fetch('suggestions.json')
-    .then(response => response.json())
-    .then(data => {
-        suggestions = data;
-        console.log('Suggestions loaded:', suggestions); // Log to confirm suggestions are loaded
-    })
-    .catch(error => console.error('Error fetching suggestions:', error));
+// Load saved cars from localStorage
+const savedCars = JSON.parse(localStorage.getItem('cars')) || [];
+suggestions = savedCars.map(car => ({
+    brand: car.brand,
+    model: car.model,
+    year: car.year,
+    price: car.price,
+    condition: car.condition,
+    color: car.color,
+    mileage: car.mileage,
+    description: car.description
+}));
 
 // Function to filter suggestions based on user input
 function searchCar() {
@@ -34,8 +38,16 @@ function displaySuggestions(suggestions) {
 
         // Add event listener to handle clicks on suggestions
         suggestionItem.addEventListener('click', () => {
-            document.getElementById('searchBar').value = suggestionItem.textContent;
-            suggestionBox.innerHTML = ''; // Clear the suggestions
+            // Save the selected car details to localStorage
+            const selectedCar = savedCars.find(car => 
+                car.brand === suggestion.brand && 
+                car.model === suggestion.model && 
+                car.year === suggestion.year
+            );
+            localStorage.setItem('selectedCar', JSON.stringify(selectedCar));
+
+            // Redirect to the car details page
+            window.location.href = 'car-details.html';
         });
     });
 }
