@@ -16,6 +16,7 @@
                     <li><a href="about.html">About</a></li>
                     <li><a href="sell.html">Sell a Car</a></li>
                     <li><a href="signup.html">Sign Up</a></li>
+                    <li><a href="listed-cars.html">Listed Cars</a></li>
                 </ul>
             </nav>
             <nav class="nav-login">
@@ -57,30 +58,19 @@
 
             if (searchQuery) {
                 try {
-                    // Retrieve all listings from Firestore
                     const carListings = collection(db, 'carListings');
                     const querySnapshot = await getDocs(carListings);
-                    
-                    // Log the total number of documents retrieved from Firestore
+
                     console.log("Total Listings Retrieved from Firestore:", querySnapshot.size);
 
-                    // Check if any documents were retrieved
-                    if (querySnapshot.empty) {
-                        console.log("No car listings found in Firestore.");
-                    }
-
-                    // Track if any matches are found
                     let matchesFound = false;
 
-                    // Iterate through each document and log it
                     querySnapshot.forEach((doc) => {
                         const car = doc.data();
                         console.log("Car Document Retrieved:", car);
 
-                        // Convert car make and model to lowercase for comparison
                         const carBrandModel = `${car.brand} ${car.model}`.toLowerCase();
 
-                        // Check if the search query matches the brand or model
                         if (carBrandModel.includes(searchQuery)) {
                             matchesFound = true;
                             console.log("Matching Car Found:", car);
@@ -89,7 +79,6 @@
                             suggestionItem.classList.add('suggestion-item');
                             suggestionItem.textContent = `${car.brand} ${car.model} (${car.year})`;
                             
-                            // Save full details to localStorage on click, then redirect
                             suggestionItem.onclick = () => {
                                 localStorage.setItem('selectedCar', JSON.stringify(car));
                                 window.location.href = 'car-details.html';

@@ -4,10 +4,10 @@ body, html {
     padding: 0;
     height: 100%;
     font-family: Arial, sans-serif;
-  }
-  
-  /* Background Image for the Main Page */
-  #home {
+}
+
+/* Background Image for the Main Page */
+#home {
     height: 100vh;
     background-image: url('College-student-in-new-car.jpg');
     background-size: cover;
@@ -18,24 +18,24 @@ body, html {
     align-items: center;
     text-align: center;
     padding: 20px;
-  }
-  
-  /* Welcome Text Styling */
-  .welcome-text h2 {
+}
+
+/* Welcome Text Styling */
+.welcome-text h2 {
     font-weight: bold;
     color: white;
     font-size: 3rem;
-  }
-  
-  .welcome-text p {
+}
+
+.welcome-text p {
     color: #f8f8ff;
     font-size: 1.5rem;
     font-weight: bold;
     margin-top: 10px;
-  }
-  
-  /* Header and Transparent Navigation Bar */
-  header {
+}
+
+/* Header and Transparent Navigation Bar */
+header {
     background-color: rgba(0, 0, 0, 0.5);
     color: white;
     padding: 10px 20px;
@@ -46,69 +46,69 @@ body, html {
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
-  
-  header h1 {
+}
+
+header h1 {
     font-size: 2rem;
     margin: 0;
     text-align: center;
-  }
-  
-  .nav-bar {
+}
+
+.nav-bar {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     padding-top: 10px;
-  }
-  
-  .nav-links {
+}
+
+.nav-links {
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  
-  .nav-links ul {
+}
+
+.nav-links ul {
     display: flex;
     list-style: none;
     padding: 0;
     margin: 0;
-  }
-  
-  .nav-links ul li {
+}
+
+.nav-links ul li {
     margin: 0 15px;
-  }
-  
-  .nav-login {
+}
+
+.nav-login {
     position: absolute;
     right: 40px;
     top: 15px;
-  }
-  
-  nav a {
+}
+
+nav a {
     color: white;
     text-decoration: none;
     font-size: 1.2rem;
-  }
-  
-  nav a:hover {
+}
+
+nav a:hover {
     text-decoration: underline;
-  }
-  
-  .search-section {
+}
+
+.search-section {
     margin-top: 20px;
     position: relative;
-  }
-  
-  .search-section input[type="text"] {
+}
+
+.search-section input[type="text"] {
     padding: 10px;
     font-size: 1.2rem;
     width: 300px;
     border: none;
     border-radius: 5px;
-  }
-  
-  .suggestions {
+}
+
+.suggestions {
     position: absolute;
     top: 45px;
     left: 0;
@@ -120,32 +120,56 @@ body, html {
     overflow-y: auto;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     z-index: 10;
-  }
-  
-  .suggestion-item {
+}
+
+.suggestion-item {
     padding: 10px;
     cursor: pointer;
     border-bottom: 1px solid #ddd;
-  }
-  
-  .suggestion-item:hover {
+}
+
+.suggestion-item:hover {
     background-color: #f1f1f1;
-  }
-  
-  .suggestion-item:last-child {
+}
+
+.suggestion-item:last-child {
     border-bottom: none;
-  }
-  
-  @media (max-width: 768px) {
+}
+
+/* Listed Cars Page Styling */
+.car-listings {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+
+.car-item {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.car-item h3 {
+    margin: 0;
+    font-size: 1.5em;
+}
+
+.car-item p {
+    margin: 5px 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
     .nav-links ul {
-      flex-direction: column;
-      align-items: center;
+        flex-direction: column;
+        align-items: center;
     }
     .nav-links ul li {
-      margin: 10px 0;
+        margin: 10px 0;
     }
     .nav-login {
-      right: 10px;
+        right: 10px;
     }
-  }
-  
+}
