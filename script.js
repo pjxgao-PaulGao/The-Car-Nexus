@@ -1,53 +1,38 @@
-let suggestions = [];
+import { db } from "./firebase-config.js";
+import { collection, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
-// Load saved cars from localStorage
-const savedCars = JSON.parse(localStorage.getItem('cars')) || [];
-suggestions = savedCars.map(car => ({
-    brand: car.brand,
-    model: car.model,
-    year: car.year,
-    price: car.price,
-    condition: car.condition,
-    color: car.color,
-    mileage: car.mileage,
-    description: car.description
-}));
-
-// Function to filter suggestions based on user input
-function searchCar() {
-    const input = document.getElementById('searchBar').value.toLowerCase();
-    const filteredSuggestions = suggestions.filter(car => {
-        const carInfo = `${car.brand} ${car.model} ${car.year}`.toLowerCase();
-        return carInfo.includes(input);
-    });
-
-    // Display the top 5 suggestions
-    displaySuggestions(filteredSuggestions.slice(0, 5));
+// Function to add a car listing to Firestore
+async function addCarListing(car) {
+  try {
+    const docRef = await addDoc(collection(db, "carListings"), car);
+    console.log("Car added with ID:", docRef.id);
+  } catch (error) {
+    console.error("Error adding car:", error);
+  }
 }
 
-// Function to display the filtered suggestions
-function displaySuggestions(suggestions) {
-    const suggestionBox = document.getElementById('suggestion-box');
-    suggestionBox.innerHTML = ''; // Clear previous suggestions
+// Function to fetch car listings in real-time from Firestore
+function fetchCarListingsRealTime() {
+  const listingsContainer = document.getElementById("car-listings");
+  listingsContainer.innerHTML = ""; // Clear previous listings
 
-    suggestions.forEach(suggestion => {
-        const suggestionItem = document.createElement('div');
-        suggestionItem.classList.add('suggestion-item');
-        suggestionItem.textContent = `${suggestion.brand} ${suggestion.model} ${suggestion.year}`;
-        suggestionBox.appendChild(suggestionItem);
+  // Set up real-time listener for Firestore
+  onSnapshot(collection(db, "carListings"), (snapshot) => {
+    listingsContainer.innerHTML = ""; // Clear current listings on update
 
-        // Add event listener to handle clicks on suggestions
-        suggestionItem.addEventListener('click', () => {
-            // Save the selected car details to localStorage
-            const selectedCar = savedCars.find(car => 
-                car.brand === suggestion.brand && 
-                car.model === suggestion.model && 
-                car.year === suggestion.year
-            );
-            localStorage.setItem('selectedCar', JSON.stringify(selectedCar));
-
-            // Redirect to the car details page
-            window.location.href = 'car-details.html';
-        });
+    snapshot.forEach((doc) => {
+      const car = doc.data();
+      const carElement = document.createElement("div");
+      carElement.classList.add("car-listing");
+      carElement.innerHTML = `
+        <h3>${car.brand} ${car.model}</h3>
+        <p>Year: ${car.year}</p>
+        <p>Price: $${car.price}</p>
+      `;
+      listingsContainer.appendChild(carElement);
     });
+  });
 }
+
+// Call the real-time function on page load
+fetchCarListingsRealTime();

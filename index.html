@@ -30,14 +30,86 @@
             <h2>Welcome to Car Nexus</h2>
             <p>Your one-stop platform for buying and selling used cars.</p>
         </div>
-        
+
         <!-- Search Section -->
         <div class="search-section">
             <input type="text" id="searchBar" placeholder="Search by make, model, or price" oninput="searchCar()">
             <div id="suggestion-box" class="suggestions"></div>
         </div>
+
+        <!-- Car Listings Display -->
+        <div id="car-listings"></div>
     </section>
 
-    <script src="script.js"></script>
+    <!-- Link your JavaScript files as modules -->
+    <script type="module" src="firebase-config.js"></script>
+
+    <script type="module">
+        import { db } from './firebase-config.js';
+        import { collection, getDocs } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+        async function searchCar() {
+            const searchQuery = document.getElementById('searchBar').value.toLowerCase().trim();
+            const suggestionBox = document.getElementById('suggestion-box');
+            suggestionBox.innerHTML = ''; // Clear previous suggestions
+
+            console.log("Search Query Entered:", searchQuery);
+
+            if (searchQuery) {
+                try {
+                    // Retrieve all listings from Firestore
+                    const carListings = collection(db, 'carListings');
+                    const querySnapshot = await getDocs(carListings);
+                    
+                    // Log the total number of documents retrieved from Firestore
+                    console.log("Total Listings Retrieved from Firestore:", querySnapshot.size);
+
+                    // Check if any documents were retrieved
+                    if (querySnapshot.empty) {
+                        console.log("No car listings found in Firestore.");
+                    }
+
+                    // Track if any matches are found
+                    let matchesFound = false;
+
+                    // Iterate through each document and log it
+                    querySnapshot.forEach((doc) => {
+                        const car = doc.data();
+                        console.log("Car Document Retrieved:", car);
+
+                        // Convert car make and model to lowercase for comparison
+                        const carBrandModel = `${car.brand} ${car.model}`.toLowerCase();
+
+                        // Check if the search query matches the brand or model
+                        if (carBrandModel.includes(searchQuery)) {
+                            matchesFound = true;
+                            console.log("Matching Car Found:", car);
+
+                            const suggestionItem = document.createElement('div');
+                            suggestionItem.classList.add('suggestion-item');
+                            suggestionItem.textContent = `${car.brand} ${car.model} (${car.year})`;
+                            
+                            // Save full details to localStorage on click, then redirect
+                            suggestionItem.onclick = () => {
+                                localStorage.setItem('selectedCar', JSON.stringify(car));
+                                window.location.href = 'car-details.html';
+                            };
+                            
+                            suggestionBox.appendChild(suggestionItem);
+                        }
+                    });
+
+                    if (!matchesFound) {
+                        console.log("No matching cars found for query:", searchQuery);
+                    }
+
+                } catch (error) {
+                    console.error("Error retrieving car listings:", error);
+                }
+            } else {
+                console.log("Empty search query, no search performed.");
+            }
+        }
+    </script>
 </body>
 </html>

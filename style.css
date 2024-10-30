@@ -4,10 +4,10 @@ body, html {
     padding: 0;
     height: 100%;
     font-family: Arial, sans-serif;
-}
-
-/* Background Image for the Main Page */
-#home {
+  }
+  
+  /* Background Image for the Main Page */
+  #home {
     height: 100vh;
     background-image: url('College-student-in-new-car.jpg');
     background-size: cover;
@@ -18,104 +18,97 @@ body, html {
     align-items: center;
     text-align: center;
     padding: 20px;
-}
-
-/* Welcome Text Styling */
-.welcome-text h2 {
+  }
+  
+  /* Welcome Text Styling */
+  .welcome-text h2 {
     font-weight: bold;
     color: white;
     font-size: 3rem;
-}
-
-.welcome-text p {
-    color: #f8f8ff; /* Bright off-white color */
+  }
+  
+  .welcome-text p {
+    color: #f8f8ff;
     font-size: 1.5rem;
-    font-weight: bold; /* Make the text bold */
+    font-weight: bold;
     margin-top: 10px;
-}
-
-/* Header and Transparent Navigation Bar */
-header {
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  }
+  
+  /* Header and Transparent Navigation Bar */
+  header {
+    background-color: rgba(0, 0, 0, 0.5);
     color: white;
     padding: 10px 20px;
-    position: fixed; /* Keep it at the top */
+    position: fixed;
     top: 0;
     width: 100%;
-    z-index: 1000; /* Ensure it stays on top */
+    z-index: 1000;
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-/* Centered Logo Styling */
-header h1 {
+  }
+  
+  header h1 {
     font-size: 2rem;
     margin: 0;
     text-align: center;
-}
-
-/* Navigation Container */
-.nav-bar {
+  }
+  
+  .nav-bar {
     width: 100%;
-    display: flex;
-    justify-content: center; /* Center the navigation */
-    align-items: center;
-    padding-top: 10px;
-}
-
-/* Navigation Link Styling */
-.nav-links {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.nav-links ul {
+    padding-top: 10px;
+  }
+  
+  .nav-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .nav-links ul {
     display: flex;
     list-style: none;
     padding: 0;
     margin: 0;
-}
-
-.nav-links ul li {
+  }
+  
+  .nav-links ul li {
     margin: 0 15px;
-}
-
-/* Log In Button on the Right */
-.nav-login {
+  }
+  
+  .nav-login {
     position: absolute;
-    right: 40px; /* Adjusted margin to ensure visibility */
+    right: 40px;
     top: 15px;
-}
-
-/* Links Styling */
-nav a {
+  }
+  
+  nav a {
     color: white;
     text-decoration: none;
     font-size: 1.2rem;
-}
-
-nav a:hover {
+  }
+  
+  nav a:hover {
     text-decoration: underline;
-}
-
-/* Search Section Styling */
-.search-section {
+  }
+  
+  .search-section {
     margin-top: 20px;
     position: relative;
-}
-
-.search-section input[type="text"] {
+  }
+  
+  .search-section input[type="text"] {
     padding: 10px;
     font-size: 1.2rem;
     width: 300px;
     border: none;
     border-radius: 5px;
-}
-
-/* Styling for the Suggestion Box */
-.suggestions {
+  }
+  
+  .suggestions {
     position: absolute;
     top: 45px;
     left: 0;
@@ -127,34 +120,32 @@ nav a:hover {
     overflow-y: auto;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     z-index: 10;
-}
-
-.suggestion-item {
+  }
+  
+  .suggestion-item {
     padding: 10px;
     cursor: pointer;
     border-bottom: 1px solid #ddd;
-}
-
-.suggestion-item:hover {
+  }
+  
+  .suggestion-item:hover {
     background-color: #f1f1f1;
-}
-
-.suggestion-item:last-child {
+  }
+  
+  .suggestion-item:last-child {
     border-bottom: none;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
+  }
+  
+  @media (max-width: 768px) {
     .nav-links ul {
-        flex-direction: column;
-        align-items: center;
+      flex-direction: column;
+      align-items: center;
     }
-
     .nav-links ul li {
-        margin: 10px 0;
+      margin: 10px 0;
     }
-
     .nav-login {
-        right: 10px; /* Adjusted for smaller screens */
+      right: 10px;
     }
-}
+  }
+  
