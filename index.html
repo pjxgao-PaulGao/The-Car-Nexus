@@ -16,7 +16,7 @@
                     <li><a href="about.html">About</a></li>
                     <li><a href="sell.html">Sell a Car</a></li>
                     <li><a href="signup.html">Sign Up</a></li>
-                    <li><a href="cars-under-15k.html">Cars under 15k</a></li> <!-- New subpage link -->
+                    <li><a href="cars-under-15k.html">Cars under 15k</a></li>
                     <li><a href="listed-cars.html">Listed Cars</a></li>
                 </ul>
             </nav>
@@ -55,27 +55,19 @@
             const suggestionBox = document.getElementById('suggestion-box');
             suggestionBox.innerHTML = ''; // Clear previous suggestions
 
-            console.log("Search Query Entered:", searchQuery);
-
             if (searchQuery) {
                 try {
                     const carListings = collection(db, 'carListings');
                     const querySnapshot = await getDocs(carListings);
-
-                    console.log("Total Listings Retrieved from Firestore:", querySnapshot.size);
-
                     let matchesFound = false;
 
                     querySnapshot.forEach((doc) => {
                         const car = doc.data();
-                        console.log("Car Document Retrieved:", car);
-
                         const carBrandModel = `${car.brand} ${car.model}`.toLowerCase();
 
+                        // Check if search query matches the car's brand or model
                         if (carBrandModel.includes(searchQuery)) {
                             matchesFound = true;
-                            console.log("Matching Car Found:", car);
-
                             const suggestionItem = document.createElement('div');
                             suggestionItem.classList.add('suggestion-item');
                             suggestionItem.textContent = `${car.brand} ${car.model} (${car.year})`;
@@ -84,22 +76,23 @@
                                 localStorage.setItem('selectedCar', JSON.stringify(car));
                                 window.location.href = 'car-details.html';
                             };
-                            
+
                             suggestionBox.appendChild(suggestionItem);
                         }
                     });
 
                     if (!matchesFound) {
-                        console.log("No matching cars found for query:", searchQuery);
+                        suggestionBox.innerHTML = '<div class="suggestion-item">No matches found</div>';
                     }
 
                 } catch (error) {
                     console.error("Error retrieving car listings:", error);
                 }
-            } else {
-                console.log("Empty search query, no search performed.");
             }
         }
+
+        // Attach event listener to the search bar to call searchCar on input
+        document.getElementById('searchBar').addEventListener('input', searchCar);
     </script>
 </body>
 </html>
