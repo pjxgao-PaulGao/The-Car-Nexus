@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sell a Car - Car Nexus</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        /* General styling */
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; }
+        header { background-color: #333; color: white; padding: 10px 0; text-align: center; }
+        nav ul { list-style-type: none; padding: 0; margin: 0; }
+        nav ul li { display: inline; margin: 0 15px; }
+        nav a { color: white; text-decoration: none; font-weight: bold; }
+        nav a:hover { text-decoration: underline; }
+        .container { max-width: 600px; margin: 50px auto; padding: 20px; background-color: white; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); border-radius: 8px; }
+        h2 { text-align: center; margin-bottom: 20px; }
+        form { display: flex; flex-direction: column; gap: 15px; }
+        input, select, textarea { padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 16px; width: 100%; }
+        button { background-color: #007bff; color: white; padding: 12px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; }
+        button:hover { background-color: #0056b3; }
+        .upload-button { background-color: #28a745; padding: 10px 15px; border-radius: 5px; color: white; text-align: center; cursor: pointer; margin-top: 5px; }
+        .upload-button:hover { background-color: #218838; }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <header>
+        <h1><a href="index.html" style="color: white; text-decoration: none;">Car Nexus</a></h1>
+        <nav>
+            <ul>
+                <li><a href="about.html">About</a></li>
+                <li><a href="sell.html">Sell a Car</a></li>
+                <li><a href="signup.html">Sign Up</a></li>
+                <li><a href="login.html">Log In</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h2>List Your Car for Sale</h2>
+        <form id="carListingForm">
+            <input type="text" id="carMake" placeholder="Car Make (e.g., Toyota)" required>
+            <input type="text" id="carModel" placeholder="Car Model (e.g., Corolla)" required>
+            <input type="number" id="carYear" placeholder="Year of Manufacture" required>
+            <input type="number" id="carPrice" placeholder="Price (in USD)" required>
+            <select id="carCondition" required>
+                <option value="" disabled selected>Select Condition</option>
+                <option value="New">New</option>
+                <option value="Used">Used</option>
+            </select>
+            <input type="text" id="carColor" placeholder="Car Color (e.g., Red)" required>
+            <input type="number" id="carMileage" placeholder="Mileage (in miles)" required>
+            <label for="carPictures" class="upload-button">Upload Pictures</label>
+            <input type="file" id="carPictures" style="display: none;" multiple accept="image/*">
+            <textarea id="carDescription" rows="5" placeholder="Write a brief description of the car..." required></textarea>
+            <button type="submit">List Car for Sale</button>
+        </form>
+    </div>
+
+    <script type="module">
+        import { db } from './firebase-config.js';
+        import { collection, addDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+        const carForm = document.getElementById('carListingForm');
+        const carPicturesInput = document.getElementById('carPictures');
+
+        carForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const carMake = document.getElementById('carMake').value;
+            const carModel = document.getElementById('carModel').value;
+            const carYear = document.getElementById('carYear').value;
+            const carPrice = document.getElementById('carPrice').value;
+            const carCondition = document.getElementById('carCondition').value;
+            const carColor = document.getElementById('carColor').value;
+            const carMileage = document.getElementById('carMileage').value;
+            const carDescription = document.getElementById('carDescription').value;
+            const carPictures = carPicturesInput.files;
+
+            // Log collected form data
+            console.log("Form Data Collected:", { carMake, carModel, carYear, carPrice, carCondition, carColor, carMileage, carDescription });
+
+            const images = [];
+            if (carPictures.length > 0) {
+                for (let i = 0; i < carPictures.length; i++) {
+                    const reader = new FileReader();
+                    reader.readAsDataURL(carPictures[i]);
+                    reader.onload = function () {
+                        images.push(reader.result);
+                        if (images.length === carPictures.length) {
+                            saveCarData();
+                        }
+                    };
+                }
+            } else {
+                saveCarData();
+            }
+
+            async function saveCarData() {
+                try {
+                    const docRef = await addDoc(collection(db, 'carListings'), {
+                        brand: carMake,
+                        model: carModel,
+                        year: carYear,
+                        price: carPrice,
+                        condition: carCondition,
+                        color: carColor,
+                        mileage: carMileage,
+                        description: carDescription,
+                        images: images
+                    });
+                    console.log("Document written with ID: ", docRef.id);
+                    alert(`Your car has been listed successfully!`);
+                    carForm.reset();
+                } catch (error) {
+                    console.error("Error adding document: ", error);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

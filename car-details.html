@@ -1,0 +1,34 @@
+<div class="container">
+    <h2>Car Details</h2>
+    <div class="car-detail" id="carBrand"></div>
+    <div class="car-detail" id="carModel"></div>
+    <div class="car-detail" id="carYear"></div>
+    <div class="car-detail" id="carPrice"></div>
+    <div class="car-detail" id="carCondition"></div>
+    <div class="car-detail" id="carColor"></div>
+    <div class="car-detail" id="carMileage"></div>
+    <div class="car-detail" id="carDescription"></div>
+    <div class="car-images" id="carImages"></div>
+</div>
+
+<script>
+    const carDetails = JSON.parse(localStorage.getItem('selectedCar'));
+    if (carDetails) {
+        document.getElementById('carBrand').textContent = `Brand: ${carDetails.brand}`;
+        document.getElementById('carModel').textContent = `Model: ${carDetails.model}`;
+        document.getElementById('carYear').textContent = `Year: ${carDetails.year}`;
+        document.getElementById('carPrice').textContent = `Price: $${carDetails.price}`;
+        document.getElementById('carCondition').textContent = `Condition: ${carDetails.condition}`;
+        document.getElementById('carColor').textContent = `Color: ${carDetails.color}`;
+        document.getElementById('carMileage').textContent = `Mileage: ${carDetails.mileage} miles`;
+        document.getElementById('carDescription').textContent = `Description: ${carDetails.description}`;
+        const carImagesContainer = document.getElementById('carImages');
+        if (carDetails.images && carDetails.images.length > 0) {
+            carDetails.images.forEach(imageSrc => {
+                const imgElement = document.createElement('img');
+                imgElement.src = imageSrc;
+                carImagesContainer.appendChild(imgElement);
+            });
+        }
+    }
+</script>

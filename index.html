@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Nexus - Home</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <header>
+        <h1>Car Nexus</h1>
+        <div class="nav-bar">
+            <nav class="nav-links">
+                <ul>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="sell.html">Sell a Car</a></li>
+                    <li><a href="signup.html">Sign Up</a></li>
+                    <li><a href="cars-under-15k.html">Cars under 15k</a></li>
+                    <li><a href="listed-cars.html">Listed Cars</a></li>
+                </ul>
+            </nav>
+            <nav class="nav-login">
+                <a href="login.html">Log In</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <section id="home">
+        <div class="welcome-text">
+            <h2>Welcome to Car Nexus</h2>
+            <p>Your one-stop platform for buying and selling used cars.</p>
+        </div>
+
+        <!-- Search Section -->
+        <div class="search-section">
+            <input type="text" id="searchBar" placeholder="Search by make, model, or price" oninput="searchCar()">
+            <div id="suggestion-box" class="suggestions"></div>
+        </div>
+
+        <!-- Car Listings Display -->
+        <div id="car-listings"></div>
+    </section>
+
+    <!-- Link your JavaScript files as modules -->
+    <script type="module" src="firebase-config.js"></script>
+
+    <script type="module">
+        import { db } from './firebase-config.js';
+        import { collection, getDocs } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+        async function searchCar() {
+            const searchQuery = document.getElementById('searchBar').value.toLowerCase().trim();
+            const suggestionBox = document.getElementById('suggestion-box');
+            suggestionBox.innerHTML = ''; // Clear previous suggestions
+
+            if (searchQuery) {
+                try {
+                    const carListings = collection(db, 'carListings');
+                    const querySnapshot = await getDocs(carListings);
+                    let matchesFound = false;
+
+                    querySnapshot.forEach((doc) => {
+                        const car = doc.data();
+                        const carBrandModel = `${car.brand} ${car.model}`.toLowerCase();
+
+                        // Check if search query matches the car's brand or model
+                        if (carBrandModel.includes(searchQuery)) {
+                            matchesFound = true;
+                            const suggestionItem = document.createElement('div');
+                            suggestionItem.classList.add('suggestion-item');
+                            suggestionItem.textContent = `${car.brand} ${car.model} (${car.year})`;
+                            
+                            suggestionItem.onclick = () => {
+                                localStorage.setItem('selectedCar', JSON.stringify(car));
+                                window.location.href = 'car-details.html';
+                            };
+
+                            suggestionBox.appendChild(suggestionItem);
+                        }
+                    });
+
+                    if (!matchesFound) {
+                        suggestionBox.innerHTML = '<div class="suggestion-item">No matches found</div>';
+                    }
+
+                } catch (error) {
+                    console.error("Error retrieving car listings:", error);
+                }
+            }
+        }
+
+        // Attach event listener to the search bar to call searchCar on input
+        document.getElementById('searchBar').addEventListener('input', searchCar);
+    </script>
+</body>
+</html>
