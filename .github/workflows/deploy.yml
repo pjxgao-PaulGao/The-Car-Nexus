@@ -1,0 +1,31 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # Triggers the workflow when changes are pushed to the main branch
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2  # Checks out your repository code
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'  # Use Node.js version 14 or adjust based on your project requirements
+
+      - name: Install dependencies
+        run: npm install  # If you have a package.json file, installs dependencies (skip if not using Node)
+
+      - name: Build project
+        run: npm run build  # Build command (adjust if necessary or skip if you don’t have a build process)
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build  # Directory where your site’s build files are located; adjust if necessary
