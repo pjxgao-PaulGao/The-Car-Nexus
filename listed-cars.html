@@ -9,7 +9,9 @@
 <body>
     <!-- Navigation Bar -->
     <header>
-        <h1>Car Nexus</h1>
+        <a href="index.html" style="color: white; text-decoration: none;">
+            <h1>Car Nexus</h1>
+        </a>
         <div class="nav-bar">
             <nav class="nav-links">
                 <ul>
@@ -26,8 +28,8 @@
         </div>
     </header>
 
-    <!-- Main Content -->
-    <section id="listed-cars">
+    <!-- Main Content with Background Image -->
+    <section id="listed-cars" class="car-background">
         <div class="page-title">
             <h2>All Listed Cars</h2>
             <p>Browse all cars currently listed for sale.</p>
@@ -59,7 +61,7 @@
                 querySnapshot.forEach((doc) => {
                     const car = doc.data();
 
-                    // Create a car listing element
+                    // Create a clickable car listing element
                     const carElement = document.createElement('div');
                     carElement.classList.add('car-item');
                     carElement.innerHTML = `
@@ -68,6 +70,14 @@
                         <p>Mileage: ${car.mileage} miles</p>
                         <p>Price: $${car.price}</p>
                     `;
+
+                    // Make the car element clickable
+                    carElement.onclick = () => {
+                        // Save selected car data to localStorage
+                        localStorage.setItem('selectedCar', JSON.stringify(car));
+                        // Redirect to car details page
+                        window.location.href = 'car-details.html';
+                    };
 
                     // Append car element to the container
                     carListingsContainer.appendChild(carElement);

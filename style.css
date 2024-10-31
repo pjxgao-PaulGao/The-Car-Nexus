@@ -95,6 +95,7 @@ nav a:hover {
     text-decoration: underline;
 }
 
+/* Search Section Styling */
 .search-section {
     margin-top: 20px;
     position: relative;
@@ -144,11 +145,37 @@ nav a:hover {
     padding: 20px;
 }
 
+/* Car Item Styling with Hover Effect */
 .car-item {
     border: 1px solid #ddd;
     padding: 15px;
     border-radius: 8px;
-    background-color: #f9f9f9;
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent dark background */
+    color: white; /* Change text color to white */
+    transition: transform 0.3s, box-shadow 0.3s; /* Smooth transition for hover effect */
+    cursor: pointer; /* Pointer cursor for clickable items */
+}
+
+.car-item h3, .car-item p {
+    color: white;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8); /* Add shadow for readability */
+}
+
+.car-item:hover {
+    transform: scale(1.03); /* Slightly enlarge the item */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow effect */
+    border-color: #007bff; /* Change border color on hover */
+}
+
+/* Background Image for Listed Cars Page */
+.car-background {
+    background-image: url('car city.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    padding: 20px;
+    min-height: 100vh;
+    color: white; /* Ensures text readability */
 }
 
 .car-item h3 {
