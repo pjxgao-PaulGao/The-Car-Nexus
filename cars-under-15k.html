@@ -3,35 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cars Under $15,000</title>
+    <title>Cars Under $15,000 - Car Nexus</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* Style for the Car Nexus logo to remove underline and set color to white */
-        header a {
-            text-decoration: none; /* Remove underline from the link */
-        }
-
-        header a h1 {
-            color: white; /* Set the logo text color to white */
-            text-decoration: none; /* Ensure no underline on the text itself */
-        }
-
-        header a:hover h1 {
-            text-decoration: none; /* Prevent underline on hover */
-        }
-    </style>
 </head>
 <body>
     <!-- Navigation Bar -->
     <header>
-        <a href="index.html"><h1>Car Nexus</h1></a> <!-- Clickable logo -->
+        <a href="index.html" style="color: white; text-decoration: none;">
+            <h1>Car Nexus</h1>
+        </a>
         <div class="nav-bar">
             <nav class="nav-links">
                 <ul>
+                    <li><a href="index.html">Home</a></li>
                     <li><a href="about.html">About</a></li>
                     <li><a href="sell.html">Sell a Car</a></li>
                     <li><a href="signup.html">Sign Up</a></li>
-                    <li><a href="cars-under-15k.html">Cars under 15k</a></li>
                     <li><a href="listed-cars.html">Listed Cars</a></li>
                 </ul>
             </nav>
@@ -42,33 +29,69 @@
     </header>
 
     <!-- Cars Under $15,000 Section -->
-    <section class="car-listings" id="cars-under-15k">
-        <h2>Cars Under $15,000</h2>
-        <p>Explore a selection of quality used cars available for $15,000 or less!</p>
-
-        <!-- Example Car Listing -->
-        <div class="car-item">
-            <h3>2015 Honda Civic</h3>
-            <p>Mileage: 60,000 miles</p>
-            <p>Price: $14,500</p>
-            <button onclick="viewDetails('2015 Honda Civic')">View More</button>
+    <section id="cars-under-15k" class="car-background">
+        <div class="page-title">
+            <h2>Cars Under $15,000</h2>
+            <p>Browse a selection of quality used cars available for $15,000 or less!</p>
         </div>
 
-        <div class="car-item">
-            <h3>2014 Toyota Corolla</h3>
-            <p>Mileage: 75,000 miles</p>
-            <p>Price: $13,000</p>
-            <button onclick="viewDetails('2014 Toyota Corolla')">View More</button>
-        </div>
-
-        <!-- Additional car listings can be added here -->
+        <!-- Car Listings Display -->
+        <div id="car-listings" class="car-listings"></div>
     </section>
 
-    <script>
-        function viewDetails(car) {
-            alert("Redirecting to details page for " + car);
-            // Implement redirection to a detailed car page if needed
+    <!-- Link your JavaScript files as modules -->
+    <script type="module" src="firebase-config.js"></script>
+    <script type="module">
+        import { db } from './firebase-config.js';
+        import { collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+        async function loadCarsUnder15k() {
+            const carListingsContainer = document.getElementById('car-listings');
+            carListingsContainer.innerHTML = ''; // Clear previous listings
+
+            try {
+                // Query Firestore for cars with price <= 15000
+                const carsCollection = collection(db, 'carListings');
+                const carsUnder15kQuery = query(carsCollection, where("price", "<=", 15000));
+                const querySnapshot = await getDocs(carsUnder15kQuery);
+
+                if (querySnapshot.empty) {
+                    carListingsContainer.innerHTML = '<p>No cars under $15,000 are currently available.</p>';
+                    return;
+                }
+
+                querySnapshot.forEach((doc) => {
+                    const car = doc.data();
+
+                    // Create a clickable car listing element
+                    const carElement = document.createElement('div');
+                    carElement.classList.add('car-item');
+                    carElement.innerHTML = `
+                        <h3>${car.brand} ${car.model} (${car.year})</h3>
+                        <p>Condition: ${car.condition}</p>
+                        <p>Mileage: ${car.mileage} miles</p>
+                        <p>Price: $${car.price}</p>
+                    `;
+
+                    // Make the car element clickable
+                    carElement.onclick = () => {
+                        // Save selected car data to localStorage
+                        localStorage.setItem('selectedCar', JSON.stringify(car));
+                        // Redirect to car details page
+                        window.location.href = 'car-details.html';
+                    };
+
+                    // Append car element to the container
+                    carListingsContainer.appendChild(carElement);
+                });
+            } catch (error) {
+                console.error("Error loading car listings:", error);
+                carListingsContainer.innerHTML = '<p>Error loading car listings. Please try again later.</p>';
+            }
         }
+
+        // Call the function to load cars under $15,000 when the page loads
+        loadCarsUnder15k();
     </script>
 </body>
 </html>
