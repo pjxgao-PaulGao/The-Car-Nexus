@@ -5,24 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create a New Account</title>
 
-    <!-- Google Font for Icons -->
+    <!-- Google Fonts and Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <style>
-        /* General styling */
+        /* General Styling */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Montserrat', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
         }
 
         /* Header Styling */
         header {
-            background-color: #333; /* Matching the dark background */
+            background-color: #333;
             color: white;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
             padding: 10px 0;
             text-align: center;
+            z-index: 1000;
+        }
+
+        header h1 a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 24px;
         }
 
         nav ul {
@@ -33,13 +50,14 @@
 
         nav ul li {
             display: inline;
-            margin: 0 15px;
+            margin: 0 20px; /* Matching spacing for Log In page */
         }
 
         nav a {
             color: white;
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 600; /* Bold font to match Log In page */
+            font-size: 18px; /* Increased font size to match Log In page */
         }
 
         nav a:hover {
@@ -48,72 +66,130 @@
 
         /* Container Styling */
         .container {
-            max-width: 600px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: white;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
+            width: 100%;
+            max-width: 500px;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            margin-top: 150px; /* Adds more space below the header */
+            text-align: center;
+            animation: fadeIn 1s ease-out;
+            opacity: 0;
+            transform: translateY(20px);
+            animation-fill-mode: forwards;
         }
 
-        h2 {
-            text-align: center;
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container h2 {
+            color: #333;
+            font-weight: 600;
             margin-bottom: 20px;
         }
 
         .icon {
             font-size: 60px;
-            color: #007bff;
-            text-align: center;
-            display: block;
-            margin: 0 auto 10px;
+            color: #6e8efb;
+            margin-bottom: 10px;
         }
 
-        form {
+        /* Input Fields Styling */
+        .input-group {
             display: flex;
-            flex-direction: column;
-            gap: 15px;
+            align-items: center;
+            position: relative;
+            margin-bottom: 15px;
         }
 
-        input {
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 16px;
+        input[type="text"], input[type="email"], input[type="password"] {
             width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: 0.3s ease;
         }
 
+        input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
+            border-color: #6e8efb;
+            box-shadow: 0 0 5px rgba(110, 142, 251, 0.4);
+            outline: none;
+        }
+
+        /* Show Password Toggle */
+        .password-toggle {
+            position: absolute;
+            right: 10px;
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            color: #333;
+        }
+
+        /* Button Styling */
         button {
-            background-color: #007bff;
+            background: #6e8efb;
             color: white;
             padding: 12px;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             font-size: 16px;
+            font-weight: bold;
             cursor: pointer;
+            transition: background 0.3s ease;
+            width: 100%;
         }
 
         button:hover {
-            background-color: #0056b3;
+            background: #5562d6;
         }
 
+        /* Login Link */
+        .login-link {
+            font-size: 14px;
+            margin-top: 20px;
+        }
+
+        .login-link a {
+            color: #6e8efb;
+            text-decoration: none;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Success Message */
         .message {
             text-align: center;
-            margin-top: 10px;
+            margin-top: 15px;
             color: green;
         }
+
     </style>
 </head>
 <body>
 
     <!-- Navigation Bar -->
     <header>
-        <h1>Car Nexus</h1>
+        <h1><a href="index.html">Car Nexus</a></h1>
         <nav>
             <ul>
                 <li><a href="about.html">About</a></li>
                 <li><a href="sell.html">Sell a Car</a></li>
-                <li><a href="signup.html">Sign Up</a></li> <!-- Matching Sign Up link -->
+                <li><a href="cars-under-15k.html">Cars Under 15k</a></li>
+                <li><a href="listed-cars.html">Listed Cars</a></li>
+                <li><a href="login.html">Log In</a></li>
             </ul>
         </nav>
     </header>
@@ -123,41 +199,39 @@
         <h2>Create a New Account</h2>
 
         <form id="createAccountForm">
-            <input type="text" id="fullName" placeholder="Full Name" required>
-            <input type="email" id="email" placeholder="Email Address" required>
-            <input type="password" id="password" placeholder="Password" required>
-            <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+            <div class="input-group">
+                <input type="text" id="fullName" placeholder="Full Name" required>
+            </div>
+            <div class="input-group">
+                <input type="email" id="email" placeholder="Email Address" required>
+            </div>
+            <div class="input-group">
+                <input type="password" id="password" placeholder="Password" required>
+                <label class="password-toggle">
+                    <input type="checkbox" onclick="togglePassword('password')"> Show
+                </label>
+            </div>
+            <div class="input-group">
+                <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+                <label class="password-toggle">
+                    <input type="checkbox" onclick="togglePassword('confirmPassword')"> Show
+                </label>
+            </div>
             <button type="submit">Create Account</button>
         </form>
 
         <div class="message" id="successMessage"></div>
+        
+        <div class="login-link">
+            Already have an account? <a href="login.html">Log In</a>
+        </div>
     </div>
 
     <script>
-        // JavaScript for form submission handling
-        const form = document.getElementById('createAccountForm');
-        const successMessage = document.getElementById('successMessage');
-
-        form.addEventListener('submit', (event) => {
-            event.preventDefault(); // Prevent page reload
-
-            const fullName = document.getElementById('fullName').value;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-
-            // Basic validation
-            if (password !== confirmPassword) {
-                alert('Passwords do not match. Please try again.');
-                return;
-            }
-
-            // Simulate account creation (you can replace this with actual backend logic)
-            successMessage.textContent = `Account created successfully for ${fullName}!`;
-
-            // Clear the form fields
-            form.reset();
-        });
+        function togglePassword(id) {
+            const input = document.getElementById(id);
+            input.type = input.type === "password" ? "text" : "password";
+        }
     </script>
 
 </body>
