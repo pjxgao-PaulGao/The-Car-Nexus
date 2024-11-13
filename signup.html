@@ -8,9 +8,10 @@
     <!-- Google Fonts and Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="style.css"> <!-- Link the CSS file here to apply the same styling as the homepage -->
 
     <style>
-        /* General Styling */
+        /* Inline styles specific to the signup page */
         body {
             font-family: 'Montserrat', sans-serif;
             margin: 0;
@@ -21,50 +22,6 @@
             align-items: center;
             min-height: 100vh;
         }
-
-        /* Header Styling */
-        header {
-            background-color: #333;
-            color: white;
-            width: 100%;
-            position: fixed;
-            top: 0;
-            left: 0;
-            padding: 10px 0;
-            text-align: center;
-            z-index: 1000;
-        }
-
-        header h1 a {
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 24px;
-        }
-
-        nav ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        nav ul li {
-            display: inline;
-            margin: 0 20px; /* Matching spacing for Log In page */
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: 600; /* Bold font to match Log In page */
-            font-size: 18px; /* Increased font size to match Log In page */
-        }
-
-        nav a:hover {
-            text-decoration: underline;
-        }
-
-        /* Container Styling */
         .container {
             width: 100%;
             max-width: 500px;
@@ -72,14 +29,13 @@
             background: white;
             border-radius: 15px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-            margin-top: 150px; /* Adds more space below the header */
+            margin-top: 150px; /* Adjusted margin to prevent overlapping with the navbar */
             text-align: center;
             animation: fadeIn 1s ease-out;
             opacity: 0;
             transform: translateY(20px);
             animation-fill-mode: forwards;
         }
-
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -90,27 +46,22 @@
                 transform: translateY(0);
             }
         }
-
         .container h2 {
             color: #333;
             font-weight: 600;
             margin-bottom: 20px;
         }
-
         .icon {
             font-size: 60px;
             color: #6e8efb;
             margin-bottom: 10px;
         }
-
-        /* Input Fields Styling */
         .input-group {
             display: flex;
             align-items: center;
             position: relative;
             margin-bottom: 15px;
         }
-
         input[type="text"], input[type="email"], input[type="password"] {
             width: 100%;
             padding: 12px;
@@ -119,14 +70,11 @@
             font-size: 16px;
             transition: 0.3s ease;
         }
-
         input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
             border-color: #6e8efb;
             box-shadow: 0 0 5px rgba(110, 142, 251, 0.4);
             outline: none;
         }
-
-        /* Show Password Toggle */
         .password-toggle {
             position: absolute;
             right: 10px;
@@ -135,8 +83,6 @@
             font-size: 14px;
             color: #333;
         }
-
-        /* Button Styling */
         button {
             background: #6e8efb;
             color: white;
@@ -149,50 +95,40 @@
             transition: background 0.3s ease;
             width: 100%;
         }
-
         button:hover {
             background: #5562d6;
         }
-
-        /* Login Link */
         .login-link {
             font-size: 14px;
             margin-top: 20px;
         }
-
         .login-link a {
             color: #6e8efb;
             text-decoration: none;
         }
-
         .login-link a:hover {
             text-decoration: underline;
         }
-
-        /* Success Message */
         .message {
             text-align: center;
             margin-top: 15px;
             color: green;
         }
-
     </style>
 </head>
 <body>
 
-    <!-- Navigation Bar -->
-    <header>
-        <h1><a href="index.html">Car Nexus</a></h1>
-        <nav>
-            <ul>
-                <li><a href="about.html">About</a></li>
-                <li><a href="sell.html">Sell a Car</a></li>
-                <li><a href="cars-under-15k.html">Cars Under 15k</a></li>
-                <li><a href="listed-cars.html">Listed Cars</a></li>
-                <li><a href="login.html">Log In</a></li>
-            </ul>
-        </nav>
-    </header>
+    <!-- Load Navbar -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch("navbar.html")
+                .then(response => response.text())
+                .then(data => {
+                    document.body.insertAdjacentHTML("afterbegin", data);
+                })
+                .catch(error => console.error("Error loading navbar:", error));
+        });
+    </script>
 
     <div class="container">
         <span class="material-icons icon">person_add</span>

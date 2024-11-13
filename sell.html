@@ -5,45 +5,78 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sell a Car - Car Nexus</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="style.css"> <!-- Link the CSS file here to apply the same styling as the homepage -->
     <style>
-        /* General styling */
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; }
-        header { background-color: #333; color: white; padding: 10px 0; text-align: center; }
-        nav ul { list-style-type: none; padding: 0; margin: 0; }
-        nav ul li { display: inline; margin: 0 15px; }
-        nav a { color: white; text-decoration: none; font-weight: bold; }
-        nav a:hover { text-decoration: underline; }
-        .container { max-width: 600px; margin: 50px auto; padding: 20px; background-color: white; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); border-radius: 8px; }
-        h2 { text-align: center; margin-bottom: 20px; }
-        form { display: flex; flex-direction: column; gap: 15px; }
-        input, select, textarea { padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 16px; width: 100%; }
-        button { background-color: #007bff; color: white; padding: 12px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; }
-        button:hover { background-color: #0056b3; }
-        .upload-button { background-color: #28a745; padding: 10px 15px; border-radius: 5px; color: white; text-align: center; cursor: pointer; margin-top: 5px; }
-        .upload-button:hover { background-color: #218838; }
-        
-        /* Modal styling */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); justify-content: center; align-items: center; }
-        .modal-content { background-color: white; padding: 20px; border-radius: 8px; width: 80%; max-width: 500px; }
-        .modal-content h3 { margin-top: 0; }
-        .modal-footer { display: flex; justify-content: flex-end; gap: 10px; }
-        .close-btn { background-color: #dc3545; }
-        .thumbnail { width: 100px; height: auto; margin-top: 10px; }
+        /* Inline styles specific to the sell page */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 100px auto; /* Adjusted margin to prevent overlapping with the navbar */
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        input, select, textarea {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 100%;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .upload-button {
+            background-color: #28a745;
+            padding: 10px 15px;
+            border-radius: 5px;
+            color: white;
+            text-align: center;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+        .upload-button:hover {
+            background-color: #218838;
+        }
     </style>
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <header>
-        <h1><a href="index.html" style="color: white; text-decoration: none;">Car Nexus</a></h1>
-        <nav>
-            <ul>
-                <li><a href="about.html">About</a></li>
-                <li><a href="sell.html">Sell a Car</a></li>
-                <li><a href="signup.html">Sign Up</a></li>
-                <li><a href="login.html">Log In</a></li>
-            </ul>
-        </nav>
-    </header>
+
+    <!-- Load Navbar -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch("navbar.html")
+                .then(response => response.text())
+                .then(data => {
+                    document.body.insertAdjacentHTML("afterbegin", data);
+                })
+                .catch(error => console.error("Error loading navbar:", error));
+        });
+    </script>
 
     <div class="container">
         <h2>List Your Car for Sale</h2>
@@ -64,20 +97,6 @@
             <textarea id="carDescription" rows="5" placeholder="Write a brief description of the car..." required></textarea>
             <button type="button" id="previewButton">Preview & List</button>
         </form>
-    </div>
-
-    <!-- Preview Modal -->
-    <div id="previewModal" class="modal">
-        <div class="modal-content">
-            <h3>Preview Car Details</h3>
-            <div id="previewContent"></div>
-            <img id="previewImage" class="thumbnail" alt="Car Image Preview" />
-            <div class="modal-footer">
-                <button class="close-btn" onclick="closeModal()">Close</button>
-                <button id="editButton">Edit</button>
-                <button id="confirmButton">Confirm and Save</button>
-            </div>
-        </div>
     </div>
 
     <script type="module">

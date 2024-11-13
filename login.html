@@ -7,60 +7,28 @@
 
     <!-- Google Font for Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="style.css"> <!-- Link the CSS file here to apply the same styling as the homepage -->
 
     <style>
-        /* General styling */
+        /* Inline styles specific to the login page */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
         }
-
-        /* Header Styling */
-        header {
-            background-color: #333;
-            color: white;
-            padding: 10px 0;
-            text-align: center;
-        }
-
-        nav ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        nav ul li {
-            display: inline;
-            margin: 0 15px;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        nav a:hover {
-            text-decoration: underline;
-        }
-
-        /* Container Styling */
         .container {
-            max-width: 600px;
-            margin: 50px auto;
+            max-width: 400px;
+            margin: 100px auto; /* Adjusted margin to prevent overlapping with the navbar */
             padding: 20px;
             background-color: white;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
         }
-
         h2 {
             text-align: center;
             margin-bottom: 20px;
         }
-
         .icon {
             font-size: 60px;
             color: #007bff;
@@ -68,23 +36,20 @@
             display: block;
             margin: 0 auto 10px;
         }
-
         form {
             display: flex;
             flex-direction: column;
             gap: 15px;
             align-items: center;
         }
-
         input {
             padding: 8px;
             border: 1px solid #ddd;
             border-radius: 5px;
             font-size: 16px;
             width: 80%;
-            max-width: 400px;
+            max-width: 300px;
         }
-
         button {
             background-color: #007bff;
             color: white;
@@ -94,24 +59,20 @@
             font-size: 16px;
             cursor: pointer;
             width: 80%;
-            max-width: 400px;
+            max-width: 300px;
         }
-
         button:hover {
             background-color: #0056b3;
         }
-
         .message {
             text-align: center;
             margin-top: 10px;
             font-size: 14px;
         }
-
         .message a {
             color: #007bff;
             text-decoration: none;
         }
-
         .message a:hover {
             text-decoration: underline;
         }
@@ -119,18 +80,17 @@
 </head>
 <body>
 
-    <!-- Navigation Bar -->
-    <header>
-        <h1><a href="index.html" style="color: white; text-decoration: none;">Car Nexus</a></h1>
-        <nav>
-            <ul>
-                <li><a href="about.html">About</a></li>
-                <li><a href="sell.html">Sell a Car</a></li>
-                <li><a href="signup.html">Sign Up</a></li>
-                <li><a href="login.html">Log In</a></li>
-            </ul>
-        </nav>
-    </header>
+    <!-- Load Navbar -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch("navbar.html")
+                .then(response => response.text())
+                .then(data => {
+                    document.body.insertAdjacentHTML("afterbegin", data);
+                })
+                .catch(error => console.error("Error loading navbar:", error));
+        });
+    </script>
 
     <div class="container">
         <span class="material-icons icon">lock</span>
