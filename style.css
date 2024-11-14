@@ -95,6 +95,23 @@ nav a:hover {
     text-decoration: underline;
 }
 
+/* User Verification Button Styling */
+.verification-link {
+    display: inline-block;
+    margin-top: 5px;
+    padding: 10px 20px;
+    background-color: #007bff; /* Match your theme color */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.verification-link:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}
+
 /* Search Section Styling */
 .search-section {
     margin-top: 20px;
