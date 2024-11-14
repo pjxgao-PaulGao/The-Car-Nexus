@@ -54,6 +54,21 @@
                 .then(response => response.text())
                 .then(data => {
                     document.body.insertAdjacentHTML("beforeend", data);
+
+                    // Add event listeners for the chat toggle after loading live-chat.html
+                    const chatButton = document.getElementById('chat-button');
+                    const chatBox = document.getElementById('chat-box');
+                    const closeChat = document.getElementById('close-chat');
+
+                    // Toggle chat box display on chat button click
+                    chatButton.addEventListener('click', () => {
+                        chatBox.style.display = chatBox.style.display === 'none' ? 'block' : 'none';
+                    });
+
+                    // Hide chat box on close button click
+                    closeChat.addEventListener('click', () => {
+                        chatBox.style.display = 'none';
+                    });
                 })
                 .catch(error => console.error("Error loading live chat:", error));
         });
