@@ -52,14 +52,17 @@ function fetchCarListingsRealTime() {
 
 // Function to predict car price based on user input
 function predictPrice() {
-    const make = document.getElementById('make').value;
-    const model = document.getElementById('model').value;
+    const make = document.getElementById('make').value.trim().toLowerCase();
+    const model = document.getElementById('model').value.trim().toLowerCase();
     const year = parseInt(document.getElementById('year').value);
     const mileage = parseInt(document.getElementById('mileage').value);
     const condition = document.getElementById('condition').value;
 
+    // Create a case-insensitive key
     const key = `${make} ${model}`;
-    const basePrice = basePrices[key];
+
+    // Convert basePrices keys to lowercase for case-insensitive lookup
+    const basePrice = basePrices[key] || basePrices[Object.keys(basePrices).find(k => k.toLowerCase() === key)];
 
     if (!basePrice) {
         document.getElementById('priceResult').textContent = "Car model not found in the database.";
