@@ -38,6 +38,11 @@
             <div id="suggestion-box" class="suggestions"></div>
         </div>
 
+        <!-- User Verification Button (below search bar) -->
+        <div style="text-align: center; margin: 20px 0;">
+            <a href="https://the-carnexus-73855.bubbleapps.io/version-test" class="verification-button" target="_blank">User Verification</a>
+        </div>
+
         <!-- Car Listings Display -->
         <div id="car-listings"></div>
     </section>
@@ -97,20 +102,39 @@
         /* Style for Prediction Link */
         .prediction-link {
             display: inline-block;
-            padding: 15px 30px; /* Increased padding */
+            padding: 15px 30px;
             background-color: #007bff;
             color: white;
             text-decoration: none;
-            border-radius: 8px; /* Slightly rounded corners */
-            font-size: 1.25rem; /* Increased font size */
-            font-weight: bold; /* Bold text */
-            width: auto; /* Allows the button to scale with content */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add a shadow for emphasis */
+            border-radius: 8px;
+            font-size: 1.25rem;
+            font-weight: bold;
+            width: auto;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .prediction-link:hover {
             background-color: #0056b3;
-            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Darker shadow on hover */
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Style for Verification Button (smaller with spacing) */
+        .verification-button {
+            display: inline-block;
+            padding: 10px 20px; /* Smaller padding */
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1rem; /* Smaller font size */
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 20px; /* Space between search bar and button */
+        }
+
+        .verification-button:hover {
+            background-color: #0056b3;
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
         }
     </style>
 </body>
