@@ -47,6 +47,18 @@
         <div id="car-listings"></div>
     </section>
 
+    <!-- Load Live Chat -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch("live-chat.html")
+                .then(response => response.text())
+                .then(data => {
+                    document.body.insertAdjacentHTML("beforeend", data);
+                })
+                .catch(error => console.error("Error loading live chat:", error));
+        });
+    </script>
+
     <!-- Link your JavaScript files as modules -->
     <script type="module" src="firebase-config.js"></script>
     <script type="module">
