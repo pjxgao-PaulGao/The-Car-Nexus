@@ -15,17 +15,24 @@
 </div>
 
 <script>
+    // Hide chat box initially using JavaScript in case CSS is overridden
+    document.addEventListener("DOMContentLoaded", () => {
+        document.getElementById('chat-box').style.display = 'none';
+    });
+
     const listedCars = [
         { brand: "Toyota", model: "Camry", year: "2018" },
         { brand: "Honda", model: "Civic", year: "2020" },
         // ... other car objects
     ];
 
+    // Show chat box only when the chat button is clicked
     document.getElementById('chat-button').addEventListener('click', () => {
         const chatBox = document.getElementById('chat-box');
         chatBox.style.display = chatBox.style.display === 'none' ? 'block' : 'none';
     });
 
+    // Hide chat box when the close button is clicked
     document.getElementById('close-chat').addEventListener('click', () => {
         document.getElementById('chat-box').style.display = 'none';
     });
@@ -130,7 +137,7 @@
         box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     }
     #chat-box {
-        display: none;
+        display: none; /* Hide chat box initially */
         position: fixed;
         bottom: 80px;
         right: 20px;
