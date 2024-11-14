@@ -27,6 +27,11 @@
             <p>Your one-stop platform for buying and selling used cars.</p>
         </div>
 
+        <!-- Link to Prediction Page -->
+        <div style="text-align: center; margin: 20px 0;">
+            <a href="car-price-prediction.html" class="prediction-link">Estimate Car Price Through AI</a>
+        </div>
+
         <!-- Search Section -->
         <div class="search-section">
             <input type="text" id="searchBar" placeholder="Search by make, model, or price" oninput="searchCar()">
@@ -87,5 +92,26 @@
         // Attach event listener to the search bar to call searchCar on input
         document.getElementById('searchBar').addEventListener('input', searchCar);
     </script>
+
+    <style>
+        /* Style for Prediction Link */
+        .prediction-link {
+            display: inline-block;
+            padding: 15px 30px; /* Increased padding */
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px; /* Slightly rounded corners */
+            font-size: 1.25rem; /* Increased font size */
+            font-weight: bold; /* Bold text */
+            width: auto; /* Allows the button to scale with content */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add a shadow for emphasis */
+        }
+
+        .prediction-link:hover {
+            background-color: #0056b3;
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Darker shadow on hover */
+        }
+    </style>
 </body>
 </html>

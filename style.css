@@ -187,6 +187,63 @@ nav a:hover {
     margin: 5px 0;
 }
 
+/* Background Image for Prediction Page */
+#prediction-page {
+    height: 100vh;
+    background-image: url('AI Prediction.jpeg'); /* Use the AI Prediction background */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Prediction Page Container Styling */
+.prediction-container {
+    background-color: rgba(0, 0, 0, 0.7); /* Dark overlay for readability */
+    padding: 30px;
+    border-radius: 10px;
+    color: white;
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Adjust form elements for prediction page */
+.prediction-container input, 
+.prediction-container select, 
+.prediction-container button {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: none;
+}
+
+.prediction-container button {
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.prediction-container button:hover {
+    background-color: #0056b3;
+}
+
+/* Result styling */
+.result {
+    font-size: 1.5rem;
+    margin-top: 20px;
+    color: #00ff00;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .nav-links ul {
@@ -198,5 +255,9 @@ nav a:hover {
     }
     .nav-login {
         right: 10px;
+    }
+    .prediction-container {
+        padding: 20px;
+        width: 90%;
     }
 }

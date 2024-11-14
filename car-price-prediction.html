@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Car Price Prediction - Car Nexus</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Container Styling */
+        .container {
+            max-width: 600px;
+            margin: 100px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        /* Form Styling */
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 1rem;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        /* Button Styling */
+        button {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Result Styling */
+        .result {
+            font-size: 1.2rem;
+            margin-top: 20px;
+            color: green;
+        }
+
+        /* Background Image Styling */
+        body {
+            background-image: url('AI Prediction.jpeg'); /* Ensure this path matches your file location */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Load Navbar -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch("navbar.html")
+                .then(response => response.text())
+                .then(data => {
+                    document.body.insertAdjacentHTML("afterbegin", data);
+                })
+                .catch(error => console.error("Error loading navbar:", error));
+        });
+    </script>
+
+    <div class="container">
+        <h2>AI Car Price Prediction</h2>
+        <form id="pricePredictionForm">
+            <input type="text" id="make" placeholder="Car Make (e.g., Toyota)" required>
+            <input type="text" id="model" placeholder="Car Model (e.g., Camry)" required>
+            <input type="number" id="year" placeholder="Year of Manufacture" required>
+            <input type="number" id="mileage" placeholder="Mileage (in miles)" required>
+            <select id="condition" required>
+                <option value="" disabled selected>Select Condition</option>
+                <option value="New">New</option>
+                <option value="Used">Used</option>
+            </select>
+            <button type="button" id="predictButton">Get Estimated Price</button>
+        </form>
+        <div class="result" id="priceResult"></div>
+    </div>
+
+    <!-- Link to your JavaScript file as a module -->
+    <script type="module" src="script.js"></script> <!-- Ensure this path matches your actual script location -->
+
+</body>
+</html>
