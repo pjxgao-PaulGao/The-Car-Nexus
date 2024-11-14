@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View in AR</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>View in AR</h2>
+        <p>Experience this Car in augmented reality.</p>
+        
+        <!-- Sketchfab Embed -->
+        <iframe 
+            title="Ferrari 550 Barchetta" 
+            frameborder="0" 
+            allowfullscreen 
+            mozallowfullscreen="true" 
+            webkitallowfullscreen="true" 
+            allow="autoplay; fullscreen; xr-spatial-tracking" 
+            xr-spatial-tracking 
+            execution-while-out-of-viewport 
+            execution-while-not-rendered 
+            web-share 
+            src="https://sketchfab.com/models/45f7f9a0276a465fa44156b02b4fddd8/embed">
+        </iframe>
+        
+        <p>
+            <a href="https://sketchfab.com/models/45f7f9a0276a465fa44156b02b4fddd8/embed?autostart=1&fullscreen=1" 
+               target="_blank" 
+               class="view-ar-button">
+               View in Fullscreen AR
+            </a>
+        </p>
+    </div>
+
+    <style>
+        iframe {
+            width: 100%;
+            height: 500px; /* Adjust as needed */
+            border: none;
+            margin-top: 20px;
+        }
+        .view-ar-button {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .view-ar-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</body>
+</html>
+
+
+
