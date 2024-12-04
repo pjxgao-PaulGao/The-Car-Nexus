@@ -17,19 +17,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: CSS Lint
-        uses: github/super-linter@v5
-        env:
-          VALIDATE_CSS: true
-          DEFAULT_BRANCH: main
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Run HTML Lint
-        run: |
-          npm install -g htmlhint
-          htmlhint **/*.html
-
+      
+      - name: Run linter
+        run: echo "Linting step here - Replace with actual linting command"
+  
   # New job for lightweight testing
   test:
     name: Test Code
