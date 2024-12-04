@@ -16,7 +16,8 @@ permissions:
   id-token: write
   security-events: write  # This permission is necessary for uploading security scan results
 
-# Allow only one concurrent deployment
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
   group: "pages"
   cancel-in-progress: false
@@ -36,7 +37,7 @@ jobs:
       - name: Run CodeQL Analysis
         uses: github/codeql-action/analyze@v2
 
-  # Lightweight validation job
+  # New job for lightweight validation
   validate:
     name: Validate Files
     runs-on: ubuntu-latest
@@ -60,11 +61,11 @@ jobs:
           fi
           echo "HTML files found!"
 
-  # Broken link testing
+  # New job for broken link testing
   check-broken-links:
     name: Broken Link Testing
     runs-on: ubuntu-latest
-    needs: validate
+    needs: validate  # This job depends on the validate job
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -75,10 +76,10 @@ jobs:
           args: --verbose
           output: "lychee-output.txt"
 
-  # Deployment to GitHub Pages
+  # Single deploy job since we're just deploying
   deploy:
     name: Deploy to GitHub Pages
-    needs: [validate, security-scan] # Removed accessibility-test dependency
+    needs: [validate, security-scan] # Ensure validate and security-scan jobs complete successfully first
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -93,8 +94,10 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
+          # Upload entire repository
           path: "."
       
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        
