@@ -278,17 +278,99 @@ nav a:hover {
         width: 90%;
     }
 }
-.view-ar-button {
-    display: inline-block;
-    margin: 20px 0;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
+
+/* Review Form Container */
+.review-form-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    text-align: left;
 }
 
-.view-ar-button:hover {
+.review-form-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#review-form label {
+    font-weight: bold;
+    display: block;
+    margin: 10px 0 5px;
+}
+
+#review-form input, 
+#review-form textarea {
+    width: calc(100% - 20px); /* Adjust to stay within the container */
+    max-width: 100%; /* Prevent them from exceeding the container */
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    box-sizing: border-box; /* Include padding and border in the width calculation */
+}
+
+#review-form textarea {
+    resize: vertical;
+}
+
+#review-form button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+#review-form button:hover {
     background-color: #0056b3;
+}
+
+.back-button {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    text-decoration: none;
+    color: #007bff;
+    font-size: 1rem;
+}
+
+.back-button:hover {
+    text-decoration: underline;
+}
+/* Customer Reviews Section */
+#reviews-section {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.8); /* Transparent background */
+    padding: 40px 20px;
+    border-radius: 10px;
+    margin-top: 40px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+/* Write a Review Button */
+#write-review {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff; /* Orange color */
+    color: white;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+#write-review:hover {
+    background-color: #007bff; /* Darker orange on hover */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
 }

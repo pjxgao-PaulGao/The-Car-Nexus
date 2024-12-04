@@ -61,6 +61,13 @@ jobs:
           fi
           echo "HTML files found!"
 
+    # Add Broken Link Testing Here
+      - name: Broken Link Testing
+        uses: lycheeverse/lychee-action@v1
+        with:
+          args: --verbose
+          output: "lychee-output.txt"
+
   # Single deploy job since we're just deploying
   deploy:
     name: Deploy to GitHub Pages
