@@ -22,11 +22,34 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Add additional jobs here!!
+  # New job for lightweight validation
+  validate:
+    name: Validate Files
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Check for README.md
+        run: |
+          if [ ! -f "README.md" ]; then
+            echo "Error: README.md is missing!" >&2
+            exit 1
+          fi
+          echo "README.md found!"
+      
+      - name: Validate HTML files
+        run: |
+          if ! find . -name "*.html" | grep -q .; then
+            echo "Error: No HTML files found!" >&2
+            exit 1
+          fi
+          echo "HTML files found!"
 
-  # End additional job steps!!
   # Single deploy job since we're just deploying
   deploy:
+    name: Deploy to GitHub Pages
+    needs: validate # Ensure validate job completes successfully first
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -34,16 +57,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      # Add steps here!!
-
-      # End additional steps!!
+      
       - name: Setup Pages
         uses: actions/configure-pages@v5
+      
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload entire repository
           path: "."
+      
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

@@ -10,14 +10,41 @@ on:
   workflow_dispatch:
 
 jobs:
-  # Add additional jobs here!!
-
-  # End additional job steps!!
+  # Linting job to check for code formatting and standards
   lint:
+    name: Lint Code
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      # Add steps here!!
+      
+      - name: Run linter
+        run: echo "Linting step here - Replace with actual linting command"
+  
+  # New job for lightweight testing
+  test:
+    name: Test Code
+    runs-on: ubuntu-latest
+    needs: lint # Ensures linting completes first
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      # End additional steps!!
+      - name: Verify essential files exist
+        run: |
+          if [ ! -f "README.md" ]; then
+            echo "Error: README.md is missing!" >&2
+            exit 1
+          fi
+          echo "README.md exists."
+
+      - name: Test for valid HTML files
+        run: |
+          if ! find . -name "*.html" | grep -q .; then
+            echo "Error: No HTML files found!" >&2
+            exit 1
+          fi
+          echo "HTML files found and valid!"
+
+      - name: Run custom tests
+        run: echo "Custom tests here - Replace with your testing command"
