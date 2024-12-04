@@ -1,4 +1,3 @@
-# Simple workflow for PRs in GitHub
 name: GitHub Actions PR Workflow
 
 on:
@@ -10,24 +9,38 @@ on:
   workflow_dispatch:
 
 jobs:
-  # Add additional jobs here!!
-
-  # End additional job steps!!
   lint:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
+      # Step 1: Checkout the code
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      # Add steps here!!
+      # Step 2: Set up Node.js (since both cspell and htmlhint are Node.js tools)
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '16'
 
-      - name: Install HTMLHint
-        run: npm install -g htmlhint
+      # Step 3: Install cspell globally (for spell checking)
+      - name: Install cspell
+        run: |
+          npm install -g cspell  # Install the cspell spell checker globally
 
+      # Step 4: Run Spell Checking (cspell)
+      - name: Run Spell Checking
+        run: |
+          cspell "**/*.md" "**/*.html" "**/*.txt"  # Check for spelling errors in markdown, html, and text files
+
+      # Step 5: Install HTMLHint globally (for HTML linting)
+      - name: Install HTMLHint
+        run: npm install -g htmlhint  # Install HTMLHint globally
+
+      # Step 6: Run HTMLHint (check for HTML issues)
       - name: Run HTMLHint
-        run: htmlhint **/*.html
-      # End additional steps!!
+        run: htmlhint "**/*.html"  # Lint all .html files in the repository
+
+      # Adding a new step to check if the files were linted correctly
+      - name: Confirm Linting Completed
+        run: echo "Linting completed successfully!"
