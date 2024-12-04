@@ -17,18 +17,26 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Step 2: Set up Node.js (since cspell is a Node.js tool)
+      # Step 2: Set up Node.js (since both cspell and htmlhint are Node.js tools)
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '16'
 
-      # Step 3: Install `cspell` globally
+      # Step 3: Install cspell globally (for spell checking)
       - name: Install cspell
         run: |
           npm install -g cspell  # Install the cspell spell checker globally
 
-      # Step 4: Run Spell Checking
+      # Step 4: Run Spell Checking (cspell)
       - name: Run Spell Checking
         run: |
           cspell "**/*.md" "**/*.html" "**/*.txt"  # Check for spelling errors in markdown, html, and text files
+
+      # Step 5: Install HTMLHint globally (for HTML linting)
+      - name: Install HTMLHint
+        run: npm install -g htmlhint  # Install HTMLHint globally
+
+      # Step 6: Run HTMLHint (check for HTML issues)
+      - name: Run HTMLHint
+        run: htmlhint "**/*.html"  # Lint all .html files in the repository
