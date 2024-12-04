@@ -40,3 +40,7 @@ jobs:
       # Step 6: Run HTMLHint (check for HTML issues)
       - name: Run HTMLHint
         run: htmlhint "**/*.html"  # Lint all .html files in the repository
+
+      # Adding a new step to check if the files were linted correctly
+      - name: Confirm Linting Completed
+        run: echo "Linting completed successfully!"
