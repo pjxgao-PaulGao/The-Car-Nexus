@@ -92,7 +92,7 @@ jobs:
         run: npm install -g lighthouse
 
       - name: Run Lighthouse Accessibility Test
-        run: lighthouse https://your-site-url.com --output=json --only-categories=accessibility --emulated-form-factor=desktop
+        run: lighthouse https://pjxgao-paulgao.github.io/The-Car-Nexus/index.html --output=json --only-categories=accessibility --emulated-form-factor=desktop
 
   # Deployment to GitHub Pages
   deploy:
