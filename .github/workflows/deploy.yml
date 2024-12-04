@@ -73,9 +73,9 @@ jobs:
         uses: lycheeverse/lychee-action@v1
         with:
           args: --verbose
-          output: "lychee-output.txt"
+          output: "lychee-output.txt" 
  
-  # Single deploy job since we're just deploying
+  # Single deploy job since we're just
   deploy:
     name: Deploy to GitHub Pages
     needs: [validate, security-scan] # Ensure validate and security-scan jobs complete successfully first
