@@ -60,8 +60,8 @@ jobs:
             exit 1
           fi
           echo "HTML files found!"
-
-    # New job for broken link testing
+          
+ # New job for broken link testing
   check-broken-links:
     name: Broken Link Testing
     runs-on: ubuntu-latest
@@ -76,10 +76,29 @@ jobs:
           args: --verbose
           output: "lychee-output.txt"
 
+  # Accessibility testing job
+  accessibility-test:
+    name: Run Accessibility Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install Lighthouse CI
+        run: npm install -g @lhci/cli
+
+      - name: Run Lighthouse Accessibility Test
+        run: lhci autorun --config=./lighthouserc.json
+
   # Single deploy job since we're just deploying
   deploy:
     name: Deploy to GitHub Pages
-    needs: [validate, security-scan] # Ensure validate and security-scan jobs complete successfully first
+    needs: [validate, security-scan, accessibility-test] # Ensure validate, security-scan, and accessibility-test jobs complete successfully first
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
