@@ -87,7 +87,7 @@ jobs:
       - name: Install and run spell checker
         uses: csexton/markdown-spell-check-action@v2
         with:
-          files: '**/*.md'  # Specify the file types to check, e.g., Markdown files
+          files: '**/*.md'  # Specify the file types to check (e.g., Markdown files)
 
   # Deployment to GitHub Pages
   deploy:
