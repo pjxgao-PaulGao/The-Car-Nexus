@@ -86,8 +86,69 @@ function predictPrice() {
     document.getElementById('priceResult').textContent = `Estimated Price: $${estimatedPrice.toFixed(2)}`;
 }
 
-// Check if the page has a predict button and attach the predictPrice function
-document.addEventListener("DOMContentLoaded", function() {
+// Fetch and display customer reviews
+function fetchCustomerReviews() {
+    const reviewsCarousel = document.getElementById("reviews-carousel");
+
+    if (!reviewsCarousel) return; // Exit if the reviews-carousel element doesn't exist
+
+    onSnapshot(collection(db, "customerReviews"), (snapshot) => {
+        reviewsCarousel.innerHTML = ""; // Clear current reviews
+
+        snapshot.forEach((doc) => {
+            const review = doc.data();
+            const reviewCard = document.createElement("div");
+            reviewCard.classList.add("review-card");
+
+            reviewCard.innerHTML = `
+                <img src="${review.image || 'https://via.placeholder.com/50'}" alt="User Avatar">
+                <h4>${review.name || "Anonymous"}</h4>
+                <p>${review.feedback}</p>
+                <div class="stars">${"⭐".repeat(review.rating || 0)}</div>
+            `;
+
+            reviewsCarousel.appendChild(reviewCard);
+        });
+    });
+}
+
+// Handle Review Form Submission on the write-review.html page
+document.addEventListener("DOMContentLoaded", () => {
+    const reviewForm = document.getElementById("review-form");
+    if (reviewForm) {
+        reviewForm.addEventListener("submit", async (event) => {
+            event.preventDefault();
+
+            const name = document.getElementById("name").value.trim();
+            const rating = parseInt(document.getElementById("rating").value);
+            const feedback = document.getElementById("feedback").value.trim();
+            const date = document.getElementById("date").value;
+
+            if (name && rating && feedback && date) {
+                try {
+                    await addDoc(collection(db, "customerReviews"), {
+                        name,
+                        rating,
+                        feedback,
+                        date,
+                        timestamp: new Date()
+                    });
+                    alert("Thank you for your review!");
+                    reviewForm.reset(); // Clear the form after submission
+                    window.location.href = "index.html"; // Redirect back to home
+                } catch (error) {
+                    console.error("Error submitting review:", error);
+                    alert("Failed to submit your review. Please try again.");
+                }
+            } else {
+                alert("Please fill out all fields.");
+            }
+        });
+    }
+});
+
+// Call relevant functions on page load
+document.addEventListener("DOMContentLoaded", function () {
     const predictButton = document.getElementById("predictButton");
     if (predictButton) {
         predictButton.addEventListener("click", predictPrice);
@@ -95,4 +156,5 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Call the real-time function only if it's relevant to the page
     fetchCarListingsRealTime();
+    fetchCustomerReviews();
 });
