@@ -10,14 +10,27 @@ on:
   workflow_dispatch:
 
 jobs:
-  # Add additional jobs here!!
-
-  # End additional job steps!!
   lint:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      # Add steps here!!
 
-      # End additional steps!!
+    steps:
+      # Step 1: Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      # Step 3: Install Stylelint and its standard config
+      - name: Install dependencies
+        run: |
+          npm install stylelint stylelint-config-standard --save-dev  # Install Stylelint
+
+      # Step 4: Run CSS linting
+      - name: Run CSS Linting
+        run: |
+          npx stylelint "**/*.css"  # Lint all .css files in the repository
+
