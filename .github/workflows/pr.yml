@@ -21,7 +21,8 @@ jobs:
 
       # Add steps here!!
       - name: HTML Lint
-        uses: creaction/html-linter-action@v1.4
+        uses: dev-drprasad/htmlhint-action@v1
         with:
-          path: "./" # Specify the directory containing HTML files
+          # Directory containing your HTML files
+          html_files: '**/*.html'
       # End additional steps!!
