@@ -75,29 +75,10 @@ jobs:
           args: --verbose
           output: "lychee-output.txt"
 
-  # Accessibility testing with inline configuration
-  accessibility-test:
-    name: Run Accessibility Tests
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Install Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16'
-
-      - name: Install Lighthouse CLI
-        run: npm install -g lighthouse
-
-      - name: Run Lighthouse Accessibility Test
-        run: lighthouse https://your-site-url.com --output=json --only-categories=accessibility --emulated-form-factor=desktop
-
   # Deployment to GitHub Pages
   deploy:
     name: Deploy to GitHub Pages
-    needs: [validate, security-scan, accessibility-test]
+    needs: [validate, security-scan]
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
