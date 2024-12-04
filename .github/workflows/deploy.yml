@@ -75,10 +75,24 @@ jobs:
           args: --verbose
           output: "lychee-output.txt"
 
+  # Spell-checking documentation files
+  spellcheck:
+    name: Spell Check Documentation
+    runs-on: ubuntu-latest
+    needs: validate  # Ensures validate job runs first
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install and run spell checker
+        uses: csexton/markdown-spell-check-action@v2
+        with:
+          files: '**/*.md'  # Specify the file types to check, e.g., Markdown files
+
   # Deployment to GitHub Pages
   deploy:
     name: Deploy to GitHub Pages
-    needs: [validate, security-scan]
+    needs: [validate, security-scan, check-broken-links, spellcheck]  # Ensures all other jobs are successful first
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
