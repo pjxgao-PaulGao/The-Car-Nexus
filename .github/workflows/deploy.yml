@@ -61,8 +61,16 @@ jobs:
           fi
           echo "HTML files found!"
 
-    # Add Broken Link Testing Here
-      - name: Broken Link Testing
+    # New job for broken link testing
+  check-broken-links:
+    name: Broken Link Testing
+    runs-on: ubuntu-latest
+    needs: validate  # This job depends on the validate job
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Broken Link Testing
         uses: lycheeverse/lychee-action@v1
         with:
           args: --verbose
