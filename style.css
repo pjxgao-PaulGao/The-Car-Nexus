@@ -374,3 +374,16 @@ nav a:hover {
     background-color: #007bff; /* Darker orange on hover */
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
 }
+/* Background Image for Write a Review Page */
+#write-review-page {
+    height: 100vh;
+    background-image: url('Review.png'); /* Replace with the path to your image */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
