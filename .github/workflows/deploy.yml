@@ -61,7 +61,7 @@ jobs:
           fi
           echo "HTML files found!"
 
-  # New job for broken link testing
+   # New job for broken link testing
   check-broken-links:
     name: Broken Link Testing
     runs-on: ubuntu-latest
@@ -100,4 +100,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-        
