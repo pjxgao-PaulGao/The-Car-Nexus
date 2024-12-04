@@ -18,6 +18,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      # Add steps here!!
 
+      # Add steps here!!
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install HTMLHint
+        run: npm install -g htmlhint
+
+      - name: Run HTMLHint
+        run: htmlhint **/*.html
       # End additional steps!!
