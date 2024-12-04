@@ -34,16 +34,23 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      # Add steps here!!
 
+      # Add steps here!!
+      - name: Optimize Images
+        uses: calibreapp/image-actions@v1
+        with:
+          path: "path/to/images" # Replace with your actual image path
       # End additional steps!!
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload entire repository
           path: "."
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

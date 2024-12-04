@@ -18,6 +18,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      # Add steps here!!
 
+      # Add steps here!!
+      - name: HTML Lint
+        uses: creaction/html-linter-action@v1.4
+        with:
+          path: "./" # Specify the directory containing HTML files
       # End additional steps!!
