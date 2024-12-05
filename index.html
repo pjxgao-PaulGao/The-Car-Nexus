@@ -5,6 +5,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Car Nexus - Home</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Car News section styling */
+        #car-news-section {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 1000;
+            width: 220px; /* Adjusted to be compact */
+        }
+
+        .car-news-container {
+            background-color: #2a2a3d;
+            color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            padding: 10px; /* Reduced padding */
+            overflow-y: auto;
+            max-height: 200px;
+            border: 2px solid #ff8c00;
+        }
+
+        .car-news-container h3 {
+            margin: 0 0 8px; /* Reduced bottom margin */
+            font-size: 1rem;
+            font-weight: bold;
+            color: #ff8c00;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        #car-news-list {
+            margin: 0;
+            padding-left: 15px; /* Adjusted for bullet points */
+        }
+
+        .news-item {
+            list-style: disc; /* Added bullet points */
+            margin-bottom: 6px; /* Reduced spacing between items */
+            font-size: 0.85rem; /* Slightly smaller font size */
+            line-height: 1.2;
+            padding: 0; /* Removed additional padding */
+            transition: color 0.3s, transform 0.2s;
+            cursor: pointer;
+        }
+
+        .news-item:hover {
+            color: #ff8c00;
+            transform: scale(1.02); /* Slight zoom effect on hover */
+        }
+
+        /* Scrollbar styling */
+        .car-news-container::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .car-news-container::-webkit-scrollbar-thumb {
+            background-color: #ff8c00;
+            border-radius: 10px;
+        }
+
+        .car-news-container::-webkit-scrollbar-thumb:hover {
+            background-color: #d97500;
+        }
+    </style>
 </head>
 <body>
 
@@ -47,16 +111,38 @@
         <div id="car-listings"></div>
 
         <!-- Customer Reviews Section -->
-<section id="reviews-section">
-    <h2>What Our Users Say</h2>
-    <p style="font-size: 1.2rem;">⭐ 4.9 rating of 39 reviews</p>
-    <div id="reviews-carousel" class="carousel">
-        <!-- Review Cards (Dynamically Loaded) -->
-    </div>
-    <button id="write-review" onclick="window.location.href='write-review.html'">
-        Write a Review
-    </button>
-</section>
+        <section id="reviews-section">
+            <h2>What Our Users Say</h2>
+            <p style="font-size: 1.2rem;">⭐ 4.9 rating of 39 reviews</p>
+            <div id="reviews-carousel" class="carousel">
+                <!-- Review Cards (Dynamically Loaded) -->
+            </div>
+            <button id="write-review" onclick="window.location.href='write-review.html'">
+                Write a Review
+            </button>
+        </section>
+    </section>
+
+    <!-- Car News Section -->
+    <section id="car-news-section">
+        <div class="car-news-container">
+            <h3>Car News</h3>
+            <ul id="car-news-list">
+                <li class="news-item">Tesla Unveils New AI-Powered Driver Assistance System</li>
+                <li class="news-item">Ford's Electric Mustang Mach-E to Get Over-the-Air Updates</li>
+                <li class="news-item">Toyota Announces 2024 Model of the Supra with More Power</li>
+                <li class="news-item">BMW to Launch Hydrogen-Powered X5 SUV by 2025</li>
+                <li class="news-item">Rivian Expands EV Lineup with New Pickup Truck and Delivery Vans</li>
+                <li class="news-item">Volkswagen's ID. Buzz Gets New Tech and Longer Range in Latest Update</li>
+                <li class="news-item">Audi Rolls Out Autonomous Driving Tech on the Road</li>
+                <li class="news-item">Chevrolet Teases New Corvette Hybrid, Set to Debut Next Year</li>
+                <li class="news-item">Hyundai Launches Next-Gen EV with 600+ Mile Range</li>
+                <li class="news-item">Mercedes-Benz Unveils New S-Class with Advanced AI Features</li>
+                <li class="news-item">Lucid Motors Faces Supply Chain Challenges but Continues EV Expansion</li>
+                <li class="news-item">General Motors Pushes Ahead with Fully Electric Cadillac Lineup</li>
+            </ul>
+        </div>
+    </section>
 
     <!-- Load Live Chat -->
     <script>
