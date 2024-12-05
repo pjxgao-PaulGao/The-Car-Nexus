@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compare Cars - Car Nexus</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Load Navbar -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch("navbar.html")
+                .then(response => response.text())
+                .then(data => {
+                    document.body.insertAdjacentHTML("afterbegin", data);
+                })
+                .catch(error => console.error("Error loading navbar:", error));
+        });
+    </script>
+
+    <!-- Main Content -->
+    <section id="compare-cars">
+        <div class="page-title">
+            <h2>Compare Cars</h2>
+            <p>Select cars to compare their specifications and features side-by-side.</p>
+        </div>
+
+        <!-- Car Selection -->
+        <div id="car-selection" class="car-selection">
+            <h3>Select Cars:</h3>
+            <div id="car-options"></div>
+        </div>
+
+        <!-- Comparison Table -->
+        <div id="comparison-table" class="comparison-table"></div>
+    </section>
+
+    <!-- JavaScript -->
+    <script type="module" src="firebase-config.js"></script>
+    <script type="module">
+        import { db } from './firebase-config.js';
+        import { collection, getDocs } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+        async function loadCarOptions() {
+            const carOptionsContainer = document.getElementById('car-options');
+            carOptionsContainer.innerHTML = ''; // Clear previous options
+
+            try {
+                const carListings = collection(db, 'carListings');
+                const querySnapshot = await getDocs(carListings);
+
+                if (querySnapshot.empty) {
+                    carOptionsContainer.innerHTML = '<p>No cars available for comparison.</p>';
+                    return;
+                }
+
+                querySnapshot.forEach((doc) => {
+                    const car = doc.data();
+
+                    // Create a car option checkbox
+                    const carOption = document.createElement('div');
+                    carOption.classList.add('car-option');
+                    carOption.innerHTML = `
+                        <input type="checkbox" id="${doc.id}" data-car='${JSON.stringify(car)}'>
+                        <label for="${doc.id}">${car.brand} ${car.model} (${car.year})</label>
+                    `;
+
+                    carOptionsContainer.appendChild(carOption);
+                });
+            } catch (error) {
+                console.error("Error loading car options:", error);
+                carOptionsContainer.innerHTML = '<p>Error loading car options. Please try again later.</p>';
+            }
+        }
+
+        function compareSelectedCars() {
+            const selectedCars = [];
+            const checkboxes = document.querySelectorAll('#car-options input[type="checkbox"]:checked');
+
+            checkboxes.forEach((checkbox) => {
+                const car = JSON.parse(checkbox.dataset.car);
+                selectedCars.push(car);
+            });
+
+            if (selectedCars.length < 2) {
+                alert('Please select at least two cars to compare.');
+                return;
+            }
+
+            // Generate comparison table
+            const comparisonTable = document.getElementById('comparison-table');
+            comparisonTable.innerHTML = '<h3>Comparison Table:</h3>';
+
+            const table = document.createElement('table');
+            const headers = ['Brand & Model', 'Year', 'Condition', 'Mileage', 'Price'];
+            const headerRow = document.createElement('tr');
+
+            headers.forEach(header => {
+                const th = document.createElement('th');
+                th.textContent = header;
+                headerRow.appendChild(th);
+            });
+
+            table.appendChild(headerRow);
+
+            selectedCars.forEach(car => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${car.brand} ${car.model}</td>
+                    <td>${car.year}</td>
+                    <td>${car.condition}</td>
+                    <td>${car.mileage} miles</td>
+                    <td>$${car.price}</td>
+                `;
+                table.appendChild(row);
+            });
+
+            comparisonTable.appendChild(table);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadCarOptions();
+
+            // Add event listener for comparison button
+            const compareButton = document.createElement('button');
+            compareButton.textContent = 'Compare Cars';
+            compareButton.onclick = compareSelectedCars;
+            document.getElementById('compare-cars').appendChild(compareButton);
+        });
+    </script>
+</body>
+</html>
